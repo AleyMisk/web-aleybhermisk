@@ -602,7 +602,7 @@
         }
     </style>
 
-    <!-- Conexión a Firebase Firestore -->
+    <!-- Conexión a Firebase Firestore y Lógica del Ranking -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -659,7 +659,7 @@
                 const itemHTML = `
                     <div class="ranking-item ${badgeClass}">
                         <div class="ranking-pos">${posDisplay}</div>
-                        <div class="ranking-avatar">${user.name ? user.name.charAt(1).toUpperCase() : 'U'}</div>
+                        <div class="ranking-avatar">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>
                         <div class="ranking-info">
                             <div class="ranking-name">${user.name}</div>
                             <div class="ranking-comments">${user.desc || 'Comentando en la comunidad'}</div>
@@ -722,6 +722,7 @@
                 </div>
             </section>
 
+            <!-- SECCIÓN DEL RANKING INTEGRADA -->
             <section class="section">
                 <div class="ranking-container">
                     <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
@@ -760,6 +761,7 @@
 
     </div>
 
+    <!-- VENTANA MODAL DEL RANKING COMPLETO -->
     <div class="modal-overlay" id="rankingModal" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -772,116 +774,22 @@
         </div>
     </div>
 
+    <!-- SCRIPT PARA CONTROLAR EL MODAL -->
     <script>
         function openRankingModal() {
             document.getElementById('rankingModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeRankingModal() {
             document.getElementById('rankingModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
         }
 
         function closeModalOutside(event) {
-            const modal = document.getElementById('rankingModal');
-            if (event.target === modal) {
+            const modalContent = document.querySelector('.modal-content');
+            if (event.target === document.getElementById('rankingModal')) {
                 closeRankingModal();
             }
         }
-
-        const apiKeyYT = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
-        const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
-        const maxResults = 15;
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKeyYT}&channelId=${channelId}&part=id&order=date&maxResults=${maxResults}`;
-
-        fetch(searchUrl)
-            .then(response => response.json())
-            .then(data => {
-                const videoIds = data.items
-                    .filter(item => item.id.videoId)
-                    .map(item => item.id.videoId)
-                    .join(',');
-
-                if (!videoIds) return;
-
-                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKeyYT}&id=${videoIds}&part=snippet`;
-                return fetch(detailsUrl);
-            })
-            .then(response => response.json())
-            .then(detailsData => {
-                if (!detailsData || !detailsData.items) return;
-
-                const contenedorVideos = document.getElementById('videos-youtube');
-                const contenedorShorts = document.getElementById('shorts-youtube');
-                
-                contenedorVideos.innerHTML = ''; 
-                contenedorShorts.innerHTML = ''; 
-                
-                let countVideos = 0;
-                let countShorts = 0;
-
-                detailsData.items.forEach(item => {
-                    const videoId = item.id;
-                    const titulo = item.snippet.title;
-                    const descripcion = item.snippet.description.toLowerCase();
-                    const esShort = descripcion.includes('#short') || descripcion.includes('#shorts') || titulo.toLowerCase().includes('#short') || titulo.toLowerCase().includes('#shorts');
-
-                    if (esShort) {
-                        contenedorShorts.innerHTML += `
-                            <div class="short-card">
-                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="video-title-popup">${titulo}</div>
-                            </div>
-                        `;
-                        countShorts++;
-                    } else {
-                        contenedorVideos.innerHTML += `
-                            <div class="video-card">
-                                <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="video-title-popup">${titulo}</div>
-                            </div>
-                        `;
-                        countVideos++;
-                    }
-                });
-
-                if (countVideos === 0) contenedorVideos.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">No hay videos largos recientes.</p>';
-                if (countShorts === 0) contenedorShorts.innerHTML = '<p style="text-align: center; width: 100%; color: #888;">No hay Shorts recientes.</p>';
-
-                setTimeout(checkScrollArrows, 100);
-            })
-            .catch(error => console.error('Error al cargar videos:', error));
-
-        function scrollShorts(direction) {
-            const container = document.getElementById('shorts-youtube');
-            container.scrollBy({ left: direction * 320, behavior: 'smooth' });
-            setTimeout(checkScrollArrows, 300);
-        }
-
-        function checkScrollArrows() {
-            const container = document.getElementById('shorts-youtube');
-            const btnLeft = document.getElementById('btn-left');
-            const btnRight = document.getElementById('btn-right');
-            if (!container) return;
-
-            const tolerance = 5;
-            btnLeft.classList.toggle('hidden', container.scrollLeft <= tolerance);
-            btnRight.classList.toggle('hidden', container.scrollLeft + container.clientWidth >= container.scrollWidth - tolerance);
-        }
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserver(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.section').forEach(section => observer.observe(section));
-        });
     </script>
 </body>
 </html>
