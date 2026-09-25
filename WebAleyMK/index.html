@@ -127,7 +127,7 @@
             gap: 10px;
         }
 
-        /* Videos Largos (Grid controlada para que no se estiren) */
+        /* Videos Largos */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
@@ -177,7 +177,7 @@
         }
 
         .short-card {
-            flex: 0 0 280px; /* Ancho fijo para cada short en la fila */
+            flex: 0 0 280px;
             background: #fff9e6;
             border-radius: 20px;
             padding: 15px;
@@ -191,7 +191,7 @@
             border-color: #ffb6c1;
         }
 
-        /* Botones deslizadores para el carrusel */
+        /* Botones deslizadores con animación suave de aparición/desaparición */
         .scroll-btn {
             position: absolute;
             z-index: 10;
@@ -204,15 +204,26 @@
             font-size: 1.5rem;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            
+            /* Animación suave */
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s;
         }
 
         .scroll-btn:hover {
             background-color: #ff6b8b;
             transform: scale(1.1);
+        }
+
+        /* Clase para ocultar las flechas con animación hacia adentro */
+        .scroll-btn.hidden {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
         }
 
         .scroll-left { left: -20px; }
@@ -372,15 +383,15 @@
                 </div>
             </section>
 
-            <!-- Sección YouTube Shorts (Carrusel Horizontal con Flechas) -->
+            <!-- Sección YouTube Shorts (Carrusel Horizontal con Flechas Animadas) -->
             <section class="section">
                 <h2 class="section-title">YouTube Shorts 📱</h2>
                 <div class="shorts-wrapper">
-                    <button class="scroll-btn scroll-left" onclick="scrollShorts(-1)">❮</button>
-                    <div class="shorts-container" id="shorts-youtube">
+                    <button class="scroll-btn scroll-left hidden" id="btn-left" onclick="scrollShorts(-1)">❮</button>
+                    <div class="shorts-container" id="shorts-youtube" onscroll="checkScrollArrows()">
                         <p style="text-align: center; width: 100%; color: #888;">Cargando Shorts...</p>
                     </div>
-                    <button class="scroll-btn scroll-right" onclick="scrollShorts(1)">❯</button>
+                    <button class="scroll-btn scroll-right" id="btn-right" onclick="scrollShorts(1)">❯</button>
                 </div>
             </section>
 
@@ -447,7 +458,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE YOUTUBE Y CARRUSEL -->
+    <!-- SCRIPT DE YOUTUBE Y ANIMACIÓN DE FLECHAS -->
     <script>
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
@@ -513,6 +524,9 @@
                 if (countShorts === 0) {
                     contenedorShorts.innerHTML = '<p style="text-align: center; width: 100%; color: #888;">No hay Shorts recientes.</p>';
                 }
+
+                // Verificamos el estado inicial de las flechas tras cargar los shorts
+                setTimeout(checkScrollArrows, 100);
             })
             .catch(error => {
                 console.error('Error al cargar videos:', error);
@@ -521,8 +535,36 @@
         // Función para mover el carrusel con las flechas
         function scrollShorts(direction) {
             const container = document.getElementById('shorts-youtube');
-            const scrollAmount = 320; // Píxeles que se desplaza
+            const scrollAmount = 320; 
             container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            setTimeout(checkScrollArrows, 300); // Actualiza estado tras la animación
+        }
+
+        // Función para mostrar/ocultar las flechas con animación según el scroll
+        function checkScrollArrows() {
+            const container = document.getElementById('shorts-youtube');
+            const btnLeft = document.getElementById('btn-left');
+            const btnRight = document.getElementById('btn-right');
+
+            if (!container) return;
+
+            const tolerance = 5; // Margen de tolerancia en píxeles
+            const atStart = container.scrollLeft <= tolerance;
+            const atEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - tolerance;
+
+            // Ocultar o mostrar flecha izquierda
+            if (atStart) {
+                btnLeft.classList.add('hidden');
+            } else {
+                btnLeft.classList.remove('hidden');
+            }
+
+            // Ocultar o mostrar flecha derecha
+            if (atEnd) {
+                btnRight.classList.add('hidden');
+            } else {
+                btnRight.classList.remove('hidden');
+            }
         }
     </script>
 
