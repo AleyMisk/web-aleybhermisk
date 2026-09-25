@@ -622,8 +622,8 @@
 
         async function cargarRankingFirebase() {
             try {
-                // Modificado para que tome los datos completos de ranking_2026
-                const q = query(collection(db, "ranking_2026"), orderBy("comments", "desc"));
+                // ORDENAMIENTO CORREGIDO: Ordena por 'puesto' de menor a mayor (1, 2, 3...)
+                const q = query(collection(db, "ranking_2026"), orderBy("puesto", "asc"));
                 const querySnapshot = await getDocs(q);
                 
                 const rankingData = [];
@@ -658,7 +658,6 @@
                 else if (pos === 2) { posDisplay = "🥈"; badgeClass = "top-2"; }
                 else if (pos === 3) { posDisplay = "🥉"; badgeClass = "top-3"; }
 
-                // Lógica unificada para renderizar el avatar correctamente
                 const avatarHTML = user.avatar 
                     ? `<img src="${user.avatar}" alt="${user.name}" class="ranking-avatar">` 
                     : `<div class="ranking-avatar">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>`;
