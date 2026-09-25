@@ -10,7 +10,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* Fondo oscuro exterior si la pantalla es muy ancha */
+            background-color: #1a1a1a;
             font-family: 'Fredoka', sans-serif;
             color: #333;
             overflow-x: hidden;
@@ -18,10 +18,9 @@
             justify-content: center;
         }
 
-        /* Contenedor principal que simula la vista del diseño */
+        /* Pantalla completa sin límite de ancho max-width */
         .main-container {
             width: 100%;
-            max-width: 1200px;
             background-color: #ffd6e0;
             background-image: radial-gradient(#ffb6c1 15%, transparent 15%);
             background-size: 30px 30px;
@@ -102,11 +101,11 @@
             font-size: 1.1rem;
         }
 
-        /* Contenedor de contenido blanco (Estilo Tarjeta) */
+        /* Contenedor de contenido blanco (Estilo Tarjeta) adaptado a pantalla completa */
         .content-card {
             background: white;
             border-radius: 40px 40px 0 0;
-            padding: 50px 20px;
+            padding: 50px 40px;
             margin-top: -40px;
             position: relative;
             z-index: 3;
@@ -114,7 +113,7 @@
         }
 
         .section {
-            max-width: 900px;
+            max-width: 1300px;
             margin: 0 auto 60px auto;
         }
 
@@ -131,12 +130,12 @@
         /* Videos */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .video-card {
-            background: #fff9e6; /* Fondo amarillo suavecito */
+            background: #fff9e6;
             border-radius: 20px;
             padding: 15px;
             transition: transform 0.3s;
@@ -170,7 +169,7 @@
 
         .tier-row {
             display: flex;
-            background: #2b2b2b; /* Fondo oscuro de la imagen */
+            background: #2b2b2b;
             margin-bottom: 15px;
             border-radius: 15px;
             overflow: hidden;
@@ -187,9 +186,9 @@
             color: #2b2b2b;
         }
 
-        .tier-s { background-color: #fff9c4; } /* Amarillo */
-        .tier-a { background-color: #ffc4d9; } /* Rosado medio */
-        .tier-b { background-color: #ffb6c1; } /* Rosado más oscuro */
+        .tier-s { background-color: #fff9c4; }
+        .tier-a { background-color: #ffc4d9; }
+        .tier-b { background-color: #ffb6c1; }
 
         .tier-content {
             padding: 10px 20px;
@@ -213,7 +212,6 @@
             background: #444;
             border-radius: 50%;
             border: 2px solid #ffb6c1;
-            /* Aquí puedes poner URLs de imágenes reales luego usando style="background-image: url(...)" */
         }
 
         .sub-name {
@@ -229,7 +227,7 @@
             margin-top: 20px;
         }
 
-        /* Redes Sociales */
+        /* Redes Sociales - Botones estilizados */
         .social-section {
             text-align: center;
         }
@@ -245,24 +243,33 @@
         .btn {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 30px;
-            color: #333;
+            gap: 12px;
+            padding: 14px 32px;
             text-decoration: none;
-            border-radius: 30px;
+            border-radius: 40px;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: 0.3s;
-            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 2px solid rgba(255,255,255,0.4);
         }
 
-        .btn-yt { background-color: #ffd6e0; color: #d32f2f; }
-        .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; }
-        .btn-lt { background-color: #e8f5e9; color: #2e7d32; }
+        .btn-yt { 
+            background: linear-gradient(135deg, #ff4e50, #f9d423); 
+            color: white; 
+        }
+        .btn-ig { 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            color: white; 
+        }
+        .btn-lt { 
+            background: linear-gradient(135deg, #11998e, #38ef7d); 
+            color: white; 
+        }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
         }
         
         .footer-credits {
@@ -287,7 +294,7 @@
                 </div>
                 <h1>AleybherMisk</h1>
                 <div class="bio-pill">
-                    Me gusta el minecraft, y todo lo jugable ✨
+                    Me gusta el minecraft y todo lo juegable en general :p ✨
                 </div>
                 <div class="stats-text">
                     5.38K Subs &nbsp;•&nbsp; +22 Videos
@@ -298,11 +305,19 @@
         <!-- Contenedor Blanco Inferior -->
         <div class="content-card">
             
-            <!-- Sección YouTube -->
+            <!-- Sección YouTube (Videos Largos Arriba) -->
             <section class="section">
                 <h2 class="section-title">Últimos Videos 🎬</h2>
                 <div class="video-grid" id="videos-youtube">
                     <p style="text-align: center; grid-column: 1 / -1; color: #888;">Cargando videos épicos desde YouTube...</p>
+                </div>
+            </section>
+
+            <!-- Sección YouTube Shorts (Debajo de los largos) -->
+            <section class="section">
+                <h2 class="section-title">YouTube Shorts 📱</h2>
+                <div class="video-grid" id="shorts-youtube">
+                    <p style="text-align: center; grid-column: 1 / -1; color: #888;">Cargando Shorts...</p>
                 </div>
             </section>
 
@@ -371,36 +386,58 @@
 
     <!-- SCRIPT DE YOUTUBE -->
     <script>
-        // ⚠️ RECUERDA PONER TU API KEY Y CHANNEL ID ⚠️
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
-        const maxVideos = 3;
+        const maxResults = 10;
 
-        const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxVideos}`;
+        const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const contenedor = document.getElementById('videos-youtube');
-                contenedor.innerHTML = ''; 
+                const contenedorVideos = document.getElementById('videos-youtube');
+                const contenedorShorts = document.getElementById('shorts-youtube');
                 
+                contenedorVideos.innerHTML = ''; 
+                contenedorShorts.innerHTML = ''; 
+                
+                let countVideos = 0;
+                let countShorts = 0;
+
                 data.items.forEach(item => {
                     if(item.id.videoId) {
                         const videoId = item.id.videoId;
                         const titulo = item.snippet.title;
-                        
-                        contenedor.innerHTML += `
+                        const esShort = titulo.toLowerCase().includes('#short') || titulo.toLowerCase().includes('#shorts');
+
+                        const tarjetaHTML = `
                             <div class="video-card">
-                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
+                                <iframe width="100%" height="${esShort ? '400' : '200'}" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
                                 <h3 style="font-size: 1.1rem; color: #333; margin-top: 15px; font-weight: 600;">${titulo}</h3>
                             </div>
                         `;
+
+                        if (esShort) {
+                            contenedorShorts.innerHTML += tarjetaHTML;
+                            countShorts++;
+                        } else {
+                            contenedorVideos.innerHTML += tarjetaHTML;
+                            countVideos++;
+                        }
                     }
                 });
+
+                if (countVideos === 0) {
+                    contenedorVideos.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">No hay videos largos recientes.</p>';
+                }
+                if (countShorts === 0) {
+                    contenedorShorts.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">No hay Shorts recientes.</p>';
+                }
             })
             .catch(error => {
                 console.error('Error al cargar videos:', error);
                 document.getElementById('videos-youtube').innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #ff7b7b;">¡Ups! Hubo un problema cargando los videos.</p>';
+                document.getElementById('shorts-youtube').innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #ff7b7b;">¡Ups! Hubo un problema cargando los shorts.</p>';
             });
     </script>
 
