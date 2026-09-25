@@ -220,7 +220,6 @@
             font-size: 1.1rem;
             color: #2b2b2b;
             margin-bottom: 8px;
-            /* Evitar textos muy largos */
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -659,40 +658,36 @@
         async function cargarUltimosVideos() {
             const gridVideos = document.getElementById('youtube-videos-grid');
             
-            // Reemplaza esto con tu API Key y tu ID de canal
-            const API_KEY = 'UCy4WyhOd6dvHanx89-hLABw'; 
-            const CHANNEL_ID = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; // Aquí va el ID largo de tu canal AleyMK
+            // Ya corregí e intercambié las variables (API_KEY lleva la clave y CHANNEL_ID lleva el canal de YouTube)
+            const API_KEY = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
+            const CHANNEL_ID = 'UCy4WyhOd6dvHanx89-hLABw'; 
             
             const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=2`;
             
             try {
-                // NOTA: Si prefieres no usar clave API, puedes usar un feed RSS como feed2json. 
-                // Abajo simulamos la carga para mantener el diseño mientras colocas tus credenciales reales:
-                
-                /*
+                // He descomentado el código real para que haga la conexión a la API
                 const respuesta = await fetch(url);
                 const datos = await respuesta.json();
                 
                 gridVideos.innerHTML = '';
                 
-                datos.items.forEach(video => {
-                    if(video.id.videoId) {
-                        const titulo = video.snippet.title;
-                        const desc = video.snippet.description || '¡Nuevo contenido en el canal!';
-                        const videoId = video.id.videoId;
-                        
-                        gridVideos.innerHTML += generarTarjetaVideo(videoId, titulo, desc);
-                    }
-                });
-                */
-
-                // Diseño simulado mientras configuras la API
-                gridVideos.innerHTML = generarTarjetaVideo('TU_VIDEO_1', 'Último Video Subido', 'Una breve descripción de lo genial que estuvo este video.') + 
-                                       generarTarjetaVideo('TU_VIDEO_2', 'Video Anterior', 'Otro video increíble que no te puedes perder por nada.');
+                if (datos.items && datos.items.length > 0) {
+                    datos.items.forEach(video => {
+                        if(video.id.videoId) {
+                            const titulo = video.snippet.title;
+                            const desc = video.snippet.description || '¡Nuevo contenido en el canal!';
+                            const videoId = video.id.videoId;
+                            
+                            gridVideos.innerHTML += generarTarjetaVideo(videoId, titulo, desc);
+                        }
+                    });
+                } else {
+                    gridVideos.innerHTML = '<p style="text-align: center; color: #888;">No se encontraron videos recientes.</p>';
+                }
                 
             } catch (error) {
                 console.error("Error al cargar videos:", error);
-                gridVideos.innerHTML = '<p style="text-align: center; color: #888;">No se pudieron cargar los videos.</p>';
+                gridVideos.innerHTML = '<p style="text-align: center; color: #888;">No se pudieron cargar los videos. Intenta de nuevo más tarde.</p>';
             }
         }
 
@@ -725,8 +720,10 @@
             }
         }
 
-        // Ejecutar carga de YouTube al iniciar la ventana
-        window.addEventListener('DOMContentLoaded', cargarUltimosVideos);
+        // Cargar los videos automáticamente al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarUltimosVideos();
+        });
     </script>
 </body>
 </html>
