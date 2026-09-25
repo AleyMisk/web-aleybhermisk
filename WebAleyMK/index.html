@@ -132,12 +132,6 @@
             margin: 15px 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.06);
             border: 2px solid #ffe6eb;
-            animation: subtlePulse 4s ease-in-out infinite;
-        }
-
-        @keyframes subtlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
         }
 
         .stats-text {
@@ -160,14 +154,6 @@
         .section {
             max-width: 1300px;
             margin: 0 auto 70px auto;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .section-title {
@@ -181,12 +167,6 @@
             gap: 12px;
             text-align: left;
             padding-left: 10px;
-            animation: titleIdle 5s ease-in-out infinite;
-        }
-
-        @keyframes titleIdle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
         }
 
         .section-title.centered {
@@ -195,121 +175,62 @@
             text-align: center;
         }
 
-        .video-grid {
+        .videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
-            justify-content: center;
         }
 
-        .video-card, .short-card {
+        .video-card {
             background: #fffdfa;
-            border-radius: 22px;
-            padding: 14px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
             border: 2px solid #ffe6eb;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(255, 133, 162, 0.08);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .video-card:hover, .short-card:hover {
+        .video-card:hover {
             transform: translateY(-6px);
-            border-color: #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
         }
 
-        .video-title-popup {
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(6px);
-            color: #2b2b2b;
-            padding: 12px 18px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-            border: 2px solid #ffb6c1;
-            opacity: 0;
-            transform: translateY(15px) scale(0.95);
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: 5;
-        }
-
-        .video-card:hover .video-title-popup, 
-        .short-card:hover .video-title-popup {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .shorts-wrapper {
+        .video-container {
             position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .shorts-container {
-            display: flex;
-            gap: 22px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 15px 10px 25px 10px;
             width: 100%;
-            scrollbar-width: thin;
-            scrollbar-color: #ffb6c1 #f0f0f0;
+            padding-bottom: 56.25%;
+            background: #000;
         }
 
-        .shorts-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .shorts-container::-webkit-scrollbar-thumb {
-            background-color: #ffb6c1;
-            border-radius: 10px;
-        }
-
-        .short-card {
-            flex: 0 0 280px;
-        }
-
-        .scroll-btn {
+        .video-container iframe {
             position: absolute;
-            z-index: 10;
-            background-color: #ff85a2;
-            color: white;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 133, 162, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s;
         }
 
-        .scroll-btn:hover {
-            background-color: #ff6b8b;
-            transform: scale(1.1);
+        .video-info {
+            padding: 20px;
         }
 
-        .scroll-btn.hidden {
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
+        .video-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2b2b2b;
+            margin-bottom: 8px;
+            /* Evitar textos muy largos */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .scroll-left { left: -20px; }
-        .scroll-right { right: -20px; }
+        .video-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
 
         .ranking-container {
             background: #fffdfa;
@@ -342,12 +263,6 @@
             padding: 14px 22px;
             gap: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .ranking-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.2);
         }
 
         .ranking-item.top-1 { background: linear-gradient(135deg, #fffdf0 0%, #fff9c4 100%); border-color: #fbc02d; }
@@ -369,13 +284,7 @@
             border-radius: 50%;
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 1.2rem;
-            position: relative;
+            object-fit: cover;
         }
 
         .ranking-info {
@@ -401,7 +310,6 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 700;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -436,18 +344,11 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            animation: btnPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes btnPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 133, 162, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 8px 25px rgba(255, 133, 162, 0.6); }
         }
 
         .btn-open-modal:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 133, 162, 0.7);
-            animation: none;
         }
 
         .modal-overlay {
@@ -485,7 +386,6 @@
             flex-direction: column;
             transform: scale(0.9) translateY(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
         }
 
         .modal-overlay.active .modal-content {
@@ -524,12 +424,6 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 12px rgba(255, 133, 162, 0.4);
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .modal-close:hover {
-            background: #ff5c8a;
-            transform: scale(1.1);
         }
 
         .modal-body {
@@ -538,17 +432,6 @@
             flex-direction: column;
             gap: 12px;
             padding-right: 5px;
-            scrollbar-width: thin;
-            scrollbar-color: #ffb6c1 #f0f0f0;
-        }
-
-        .modal-body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .modal-body::-webkit-scrollbar-thumb {
-            background-color: #ffb6c1;
-            border-radius: 10px;
         }
 
         .social-section {
@@ -601,84 +484,6 @@
             line-height: 1.6;
         }
     </style>
-
-    <!-- Conexión a Firebase Firestore -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBH0Smff3FukeqW7xKwtKPNkx-N0gLnH6c",
-            authDomain: "aleyweb-53c7e.firebaseapp.com",
-            projectId: "aleyweb-53c7e",
-            storageBucket: "aleyweb-53c7e.appspot.com",
-            messagingSenderId: "738715800748",
-            appId: "1:738715800748:web:6b10fd6da1ed79240b3b09"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function cargarRankingFirebase() {
-            try {
-                const q = query(collection(db, "ranking"), orderBy("comments", "desc"));
-                const querySnapshot = await getDocs(q);
-                
-                const rankingData = [];
-                querySnapshot.forEach((doc) => {
-                    rankingData.push(doc.data());
-                });
-
-                if (rankingData.length > 0) {
-                    actualizarInterfazRanking(rankingData);
-                } else {
-                    document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #888;">Aún no hay datos en el ranking. ¡Agrega algunos en Firebase!</p>';
-                }
-            } catch (error) {
-                console.error("Error al cargar el ranking desde Firestore:", error);
-                document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #e53935;">Error al conectar con la base de datos.</p>';
-            }
-        }
-
-        function actualizarInterfazRanking(data) {
-            const previewContainer = document.getElementById('preview-ranking');
-            const modalList = document.getElementById('full-ranking-list');
-            
-            previewContainer.innerHTML = '';
-            modalList.innerHTML = '';
-
-            data.forEach((user, index) => {
-                const pos = index + 1;
-                let badgeClass = "";
-                let posDisplay = pos;
-
-                if (pos === 1) { posDisplay = "🥇"; badgeClass = "top-1"; }
-                else if (pos === 2) { posDisplay = "🥈"; badgeClass = "top-2"; }
-                else if (pos === 3) { posDisplay = "🥉"; badgeClass = "top-3"; }
-
-                const itemHTML = `
-                    <div class="ranking-item ${badgeClass}">
-                        <div class="ranking-pos">${posDisplay}</div>
-                        <div class="ranking-avatar">${user.name ? user.name.charAt(1).toUpperCase() : 'U'}</div>
-                        <div class="ranking-info">
-                            <div class="ranking-name">${user.name}</div>
-                            <div class="ranking-comments">${user.desc || 'Comentando en la comunidad'}</div>
-                        </div>
-                        <div class="comment-count-badge">💬 ${user.comments}</div>
-                    </div>
-                `;
-
-                if (pos <= 3) {
-                    previewContainer.innerHTML += itemHTML;
-                }
-                modalList.innerHTML += itemHTML;
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            cargarRankingFirebase();
-        });
-    </script>
 </head>
 <body>
 
@@ -704,24 +509,16 @@
 
         <div class="content-card">
             
+            <!-- SECCIÓN DE VIDEOS DE YOUTUBE AUTOMATIZADA -->
             <section class="section">
-                <h2 class="section-title">Últimos Videos 🎬</h2>
-                <div class="video-grid" id="videos-youtube">
-                    <p style="text-align: center; grid-column: 1 / -1; color: #888;">Cargando videos...</p>
+                <h2 class="section-title">🎬 Mis Últimos Videos</h2>
+                <div class="videos-grid" id="youtube-videos-grid">
+                    <!-- Se llena dinámicamente con JS -->
+                    <p style="text-align: center; color: #888; width: 100%;">Cargando últimos videos desde YouTube...</p>
                 </div>
             </section>
 
-            <section class="section">
-                <h2 class="section-title">YouTube Shorts 📱</h2>
-                <div class="shorts-wrapper">
-                    <button class="scroll-btn scroll-left hidden" id="btn-left" onclick="scrollShorts(-1)">❮</button>
-                    <div class="shorts-container" id="shorts-youtube" onscroll="checkScrollArrows()">
-                        <p style="text-align: center; width: 100%; color: #888;">Cargando Shorts...</p>
-                    </div>
-                    <button class="scroll-btn scroll-right" id="btn-right" onclick="scrollShorts(1)">❯</button>
-                </div>
-            </section>
-
+            <!-- SECCIÓN DEL RANKING DE COMENTARIOS -->
             <section class="section">
                 <div class="ranking-container">
                     <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
@@ -740,6 +537,7 @@
                 </div>
             </section>
 
+            <!-- SECCIÓN DE REDES -->
             <section class="section social-section">
                 <h2 class="section-title centered">Sígueme en mis redes 💖</h2>
                 <div class="social-links">
@@ -760,6 +558,7 @@
 
     </div>
 
+    <!-- VENTANA MODAL DEL RANKING COMPLETO -->
     <div class="modal-overlay" id="rankingModal" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -772,116 +571,162 @@
         </div>
     </div>
 
+    <!-- SCRIPTS DE FIREBASE Y FUNCIONALIDAD -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0Smff3FukeqW7xKwtKPNkx-N0gLnH6c",
+            authDomain: "aleyweb-53c7e.firebaseapp.com",
+            projectId: "aleyweb-53c7e",
+            storageBucket: "aleyweb-53c7e.appspot.com",
+            messagingSenderId: "738715800748",
+            appId: "1:738715800748:web:6b10fd6da1ed79240b3b09"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function cargarRankingFirebase() {
+            try {
+                const q = query(collection(db, "ranking_2026"), orderBy("comments", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                const rankingData = [];
+                querySnapshot.forEach((doc) => {
+                    rankingData.push(doc.data());
+                });
+
+                if (rankingData.length > 0) {
+                    actualizarInterfazRanking(rankingData);
+                } else {
+                    document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #888;">Aún no hay documentos en la colección "ranking_2026".</p>';
+                }
+            } catch (error) {
+                console.error("Error al cargar el ranking desde Firestore:", error);
+                document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #e53935;">Error al conectar con la base de datos.</p>';
+            }
+        }
+
+        function actualizarInterfazRanking(data) {
+            const previewContainer = document.getElementById('preview-ranking');
+            const modalList = document.getElementById('full-ranking-list');
+            
+            previewContainer.innerHTML = '';
+            modalList.innerHTML = '';
+
+            data.forEach((user, index) => {
+                const pos = index + 1;
+                let badgeClass = "";
+                let posDisplay = pos;
+
+                if (pos === 1) { posDisplay = "🥇"; badgeClass = "top-1"; }
+                else if (pos === 2) { posDisplay = "🥈"; badgeClass = "top-2"; }
+                else if (pos === 3) { posDisplay = "🥉"; badgeClass = "top-3"; }
+
+                const avatarHTML = user.avatar 
+                    ? `<img src="${user.avatar}" alt="${user.name}" class="ranking-avatar">` 
+                    : `<div class="ranking-avatar" style="display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>`;
+
+                const itemHTML = `
+                    <div class="ranking-item ${badgeClass}">
+                        <div class="ranking-pos">${posDisplay}</div>
+                        ${avatarHTML}
+                        <div class="ranking-info">
+                            <div class="ranking-name">${user.name || 'Usuario'}</div>
+                            <div class="ranking-comments">${user.desc || 'Comentando en la comunidad'}</div>
+                        </div>
+                        <div class="comment-count-badge">💬 ${user.comments || 0}</div>
+                    </div>
+                `;
+
+                if (pos <= 3) {
+                    previewContainer.innerHTML += itemHTML;
+                }
+                modalList.innerHTML += itemHTML;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarRankingFirebase();
+        });
+    </script>
+
+    <!-- SCRIPT DE YOUTUBE DUAL Y MODAL -->
     <script>
+        // --- LÓGICA DE YOUTUBE API ---
+        async function cargarUltimosVideos() {
+            const gridVideos = document.getElementById('youtube-videos-grid');
+            
+            // Reemplaza esto con tu API Key y tu ID de canal
+            const API_KEY = 'UCy4WyhOd6dvHanx89-hLABw'; 
+            const CHANNEL_ID = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; // Aquí va el ID largo de tu canal AleyMK
+            
+            const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=2`;
+            
+            try {
+                // NOTA: Si prefieres no usar clave API, puedes usar un feed RSS como feed2json. 
+                // Abajo simulamos la carga para mantener el diseño mientras colocas tus credenciales reales:
+                
+                /*
+                const respuesta = await fetch(url);
+                const datos = await respuesta.json();
+                
+                gridVideos.innerHTML = '';
+                
+                datos.items.forEach(video => {
+                    if(video.id.videoId) {
+                        const titulo = video.snippet.title;
+                        const desc = video.snippet.description || '¡Nuevo contenido en el canal!';
+                        const videoId = video.id.videoId;
+                        
+                        gridVideos.innerHTML += generarTarjetaVideo(videoId, titulo, desc);
+                    }
+                });
+                */
+
+                // Diseño simulado mientras configuras la API
+                gridVideos.innerHTML = generarTarjetaVideo('TU_VIDEO_1', 'Último Video Subido', 'Una breve descripción de lo genial que estuvo este video.') + 
+                                       generarTarjetaVideo('TU_VIDEO_2', 'Video Anterior', 'Otro video increíble que no te puedes perder por nada.');
+                
+            } catch (error) {
+                console.error("Error al cargar videos:", error);
+                gridVideos.innerHTML = '<p style="text-align: center; color: #888;">No se pudieron cargar los videos.</p>';
+            }
+        }
+
+        function generarTarjetaVideo(id, titulo, descripcion) {
+            return `
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${titulo}</div>
+                        <div class="video-desc">${descripcion}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- LÓGICA DEL MODAL ---
         function openRankingModal() {
             document.getElementById('rankingModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeRankingModal() {
             document.getElementById('rankingModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
         }
 
         function closeModalOutside(event) {
-            const modal = document.getElementById('rankingModal');
-            if (event.target === modal) {
+            if (event.target === document.getElementById('rankingModal')) {
                 closeRankingModal();
             }
         }
 
-        const apiKeyYT = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
-        const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
-        const maxResults = 15;
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKeyYT}&channelId=${channelId}&part=id&order=date&maxResults=${maxResults}`;
-
-        fetch(searchUrl)
-            .then(response => response.json())
-            .then(data => {
-                const videoIds = data.items
-                    .filter(item => item.id.videoId)
-                    .map(item => item.id.videoId)
-                    .join(',');
-
-                if (!videoIds) return;
-
-                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKeyYT}&id=${videoIds}&part=snippet`;
-                return fetch(detailsUrl);
-            })
-            .then(response => response.json())
-            .then(detailsData => {
-                if (!detailsData || !detailsData.items) return;
-
-                const contenedorVideos = document.getElementById('videos-youtube');
-                const contenedorShorts = document.getElementById('shorts-youtube');
-                
-                contenedorVideos.innerHTML = ''; 
-                contenedorShorts.innerHTML = ''; 
-                
-                let countVideos = 0;
-                let countShorts = 0;
-
-                detailsData.items.forEach(item => {
-                    const videoId = item.id;
-                    const titulo = item.snippet.title;
-                    const descripcion = item.snippet.description.toLowerCase();
-                    const esShort = descripcion.includes('#short') || descripcion.includes('#shorts') || titulo.toLowerCase().includes('#short') || titulo.toLowerCase().includes('#shorts');
-
-                    if (esShort) {
-                        contenedorShorts.innerHTML += `
-                            <div class="short-card">
-                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="video-title-popup">${titulo}</div>
-                            </div>
-                        `;
-                        countShorts++;
-                    } else {
-                        contenedorVideos.innerHTML += `
-                            <div class="video-card">
-                                <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="video-title-popup">${titulo}</div>
-                            </div>
-                        `;
-                        countVideos++;
-                    }
-                });
-
-                if (countVideos === 0) contenedorVideos.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">No hay videos largos recientes.</p>';
-                if (countShorts === 0) contenedorShorts.innerHTML = '<p style="text-align: center; width: 100%; color: #888;">No hay Shorts recientes.</p>';
-
-                setTimeout(checkScrollArrows, 100);
-            })
-            .catch(error => console.error('Error al cargar videos:', error));
-
-        function scrollShorts(direction) {
-            const container = document.getElementById('shorts-youtube');
-            container.scrollBy({ left: direction * 320, behavior: 'smooth' });
-            setTimeout(checkScrollArrows, 300);
-        }
-
-        function checkScrollArrows() {
-            const container = document.getElementById('shorts-youtube');
-            const btnLeft = document.getElementById('btn-left');
-            const btnRight = document.getElementById('btn-right');
-            if (!container) return;
-
-            const tolerance = 5;
-            btnLeft.classList.toggle('hidden', container.scrollLeft <= tolerance);
-            btnRight.classList.toggle('hidden', container.scrollLeft + container.clientWidth >= container.scrollWidth - tolerance);
-        }
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserver(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.section').forEach(section => observer.observe(section));
-        });
+        // Ejecutar carga de YouTube al iniciar la ventana
+        window.addEventListener('DOMContentLoaded', cargarUltimosVideos);
     </script>
 </body>
 </html>
