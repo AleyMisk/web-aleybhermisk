@@ -175,6 +175,58 @@
             text-align: center;
         }
 
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: #fffdfa;
+            border: 2px solid #ffe6eb;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2b2b2b;
+            margin-bottom: 8px;
+        }
+
+        .video-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
         .ranking-container {
             background: #fffdfa;
             border: 2px solid #ffe6eb;
@@ -227,12 +279,7 @@
             border-radius: 50%;
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 1.2rem;
+            object-fit: cover;
         }
 
         .ranking-info {
@@ -457,7 +504,32 @@
 
         <div class="content-card">
             
-            <!-- SECCIÓN DEL RANKING INTEGRADA -->
+            <!-- SECCIÓN DE VIDEOS DE YOUTUBE -->
+            <section class="section">
+                <h2 class="section-title">🎬 Mis Últimos Videos</h2>
+                <div class="videos-grid">
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/TU_VIDEO_1" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Título de tu video 1</div>
+                            <div class="video-desc">Una breve descripción de lo genial que estuvo este video.</div>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/TU_VIDEO_2" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Título de tu video 2</div>
+                            <div class="video-desc">Otro video increíble que no te puedes perder por nada.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DEL RANKING DE COMENTARIOS -->
             <section class="section">
                 <div class="ranking-container">
                     <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
@@ -476,6 +548,7 @@
                 </div>
             </section>
 
+            <!-- SECCIÓN DE REDES -->
             <section class="section social-section">
                 <h2 class="section-title centered">Sígueme en mis redes 💖</h2>
                 <div class="social-links">
@@ -528,7 +601,8 @@
 
         async function cargarRankingFirebase() {
             try {
-                const q = query(collection(db, "ranking"), orderBy("comments", "desc"));
+                // Conectando a la colección correcta "ranking_2026" ordenando por los comentarios
+                const q = query(collection(db, "ranking_2026"), orderBy("comments", "desc"));
                 const querySnapshot = await getDocs(q);
                 
                 const rankingData = [];
@@ -539,7 +613,7 @@
                 if (rankingData.length > 0) {
                     actualizarInterfazRanking(rankingData);
                 } else {
-                    document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #888;">Aún no hay datos en el ranking. ¡Agrega algunos en Firebase!</p>';
+                    document.getElementById('preview-ranking').innerHTML = '<p style="text-align: center; color: #888;">Aún no hay documentos en la colección "ranking_2026".</p>';
                 }
             } catch (error) {
                 console.error("Error al cargar el ranking desde Firestore:", error);
@@ -563,15 +637,20 @@
                 else if (pos === 2) { posDisplay = "🥈"; badgeClass = "top-2"; }
                 else if (pos === 3) { posDisplay = "🥉"; badgeClass = "top-3"; }
 
+                // Usa la imagen de avatar de Firebase si existe, si no, usa la inicial del nombre por seguridad
+                const avatarHTML = user.avatar 
+                    ? `<img src="${user.avatar}" alt="${user.name}" class="ranking-avatar">` 
+                    : `<div class="ranking-avatar" style="display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>`;
+
                 const itemHTML = `
                     <div class="ranking-item ${badgeClass}">
                         <div class="ranking-pos">${posDisplay}</div>
-                        <div class="ranking-avatar">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>
+                        ${avatarHTML}
                         <div class="ranking-info">
-                            <div class="ranking-name">${user.name}</div>
+                            <div class="ranking-name">${user.name || 'Usuario'}</div>
                             <div class="ranking-comments">${user.desc || 'Comentando en la comunidad'}</div>
                         </div>
-                        <div class="comment-count-badge">💬 ${user.comments}</div>
+                        <div class="comment-count-badge">💬 ${user.comments || 0}</div>
                     </div>
                 `;
 
