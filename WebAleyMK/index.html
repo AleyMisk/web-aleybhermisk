@@ -384,17 +384,33 @@
         </div> <!-- Fin de content-card -->
     </div> <!-- Fin de main-container -->
 
-    <!-- SCRIPT DE YOUTUBE -->
+    <!-- SCRIPT DE YOUTUBE MEJORADO (Lee descripciones y separa por tipo) -->
     <script>
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
-        const maxResults = 10;
+        const maxResults = 12;
 
-        const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`;
+        // Paso 1: Buscar los IDs recientes del canal
+        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=id&order=date&maxResults=${maxResults}`;
 
-        fetch(url)
+        fetch(searchUrl)
             .then(response => response.json())
             .then(data => {
+                const videoIds = data.items
+                    .filter(item => item.id.videoId)
+                    .map(item => item.id.videoId)
+                    .join(',');
+
+                if (!videoIds) return;
+
+                // Paso 2: Pedir los detalles completos incluyendo la descripción de cada video
+                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&id=${videoIds}&part=snippet`;
+                return fetch(detailsUrl);
+            })
+            .then(response => response.json())
+            .then(detailsData => {
+                if (!detailsData || !detailsData.items) return;
+
                 const contenedorVideos = document.getElementById('videos-youtube');
                 const contenedorShorts = document.getElementById('shorts-youtube');
                 
@@ -404,26 +420,27 @@
                 let countVideos = 0;
                 let countShorts = 0;
 
-                data.items.forEach(item => {
-                    if(item.id.videoId) {
-                        const videoId = item.id.videoId;
-                        const titulo = item.snippet.title;
-                        const esShort = titulo.toLowerCase().includes('#short') || titulo.toLowerCase().includes('#shorts');
+                detailsData.items.forEach(item => {
+                    const videoId = item.id;
+                    const titulo = item.snippet.title;
+                    const descripcion = item.snippet.description.toLowerCase();
+                    
+                    // Detecta si es short revisando si el título o la descripción contienen #short o #shorts
+                    const esShort = descripcion.includes('#short') || descripcion.includes('#shorts') || titulo.toLowerCase().includes('#short') || titulo.toLowerCase().includes('#shorts');
 
-                        const tarjetaHTML = `
-                            <div class="video-card">
-                                <iframe width="100%" height="${esShort ? '400' : '200'}" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <h3 style="font-size: 1.1rem; color: #333; margin-top: 15px; font-weight: 600;">${titulo}</h3>
-                            </div>
-                        `;
+                    const tarjetaHTML = `
+                        <div class="video-card">
+                            <iframe width="100%" height="${esShort ? '400' : '200'}" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
+                            <h3 style="font-size: 1.1rem; color: #333; margin-top: 15px; font-weight: 600;">${titulo}</h3>
+                        </div>
+                    `;
 
-                        if (esShort) {
-                            contenedorShorts.innerHTML += tarjetaHTML;
-                            countShorts++;
-                        } else {
-                            contenedorVideos.innerHTML += tarjetaHTML;
-                            countVideos++;
-                        }
+                    if (esShort) {
+                        contenedorShorts.innerHTML += tarjetaHTML;
+                        countShorts++;
+                    } else {
+                        contenedorVideos.innerHTML += tarjetaHTML;
+                        countVideos++;
                     }
                 });
 
