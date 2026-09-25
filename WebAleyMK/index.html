@@ -103,11 +103,11 @@
             text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Contenedor principal de contenido con sombra elegante superior */
+        /* Contenedor principal con fondo crema/pastel suave en lugar de blanco plano */
         .content-card {
-            background: white;
+            background: linear-gradient(180deg, #fffdf9 0%, #fff4f7 100%);
             border-radius: 40px 40px 0 0;
-            padding: 60px 40px;
+            padding: 60px 40px 0 40px;
             margin-top: -40px;
             position: relative;
             z-index: 3;
@@ -117,6 +117,16 @@
         .section {
             max-width: 1300px;
             margin: 0 auto 70px auto;
+            
+            /* Clases para la animación de scroll */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
@@ -137,23 +147,23 @@
             justify-content: center;
         }
 
-        /* Tarjetas con sombras estéticas y marcadas alrededor de todo el contorno */
+        /* Tarjetas con sombras estéticas */
         .video-card, .short-card {
-            background: #fff9e6;
+            background: #ffffff;
             border-radius: 22px;
             padding: 14px;
             position: relative;
             overflow: hidden;
             text-align: center;
-            border: 2px solid transparent;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(255, 133, 162, 0.15);
+            border: 2px solid #ffe6eb;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(255, 133, 162, 0.1);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-card:hover, .short-card:hover {
             transform: translateY(-6px);
             border-color: #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.4);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.35);
         }
 
         /* Ventanita flotante animada con el título al pasar el cursor */
@@ -251,9 +261,9 @@
         .scroll-left { left: -20px; }
         .scroll-right { right: -20px; }
 
-        /* Tier List con sombra ligera */
+        /* Tier List */
         .tier-list-container {
-            background: #fff;
+            background: #ffffff;
             border: 2px solid #ffe6eb;
             border-radius: 24px;
             padding: 30px;
@@ -369,11 +379,21 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.18);
         }
         
-        .footer-credits {
+        /* Pie de página diferenciado para que se note claramente el final */
+        .footer-section {
+            background-color: #2b2b2b;
+            color: #fff;
+            padding: 40px 20px;
             text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 50px;
+            border-radius: 40px 40px 0 0;
+            margin-top: 80px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+        }
+
+        .footer-credits {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
     </style>
@@ -397,7 +417,7 @@
             </div>
         </section>
 
-        <!-- Contenedor Blanco Inferior -->
+        <!-- Contenedor Principal -->
         <div class="content-card">
             
             <!-- Sección YouTube (Videos Largos) -->
@@ -475,15 +495,19 @@
                 </div>
             </section>
 
+        </div> <!-- Fin de content-card -->
+
+        <!-- Footer Diferenciado (Final de página) -->
+        <footer class="footer-section">
             <div class="footer-credits">
                 © 2026 AleybherMisk. Todos los derechos reservados.<br>
                 Diseñado con cariño ✨
             </div>
-            
-        </div>
+        </footer>
+
     </div>
 
-    <!-- SCRIPT DE YOUTUBE -->
+    <!-- SCRIPT DE YOUTUBE Y ANIMACIÓN SCROLL FADE-IN -->
     <script>
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
@@ -586,6 +610,25 @@
                 btnRight.classList.remove('hidden');
             }
         }
+
+        /* Script para la animación de aparición al hacer scroll (Fade-In) */
+        const observerOptions = {
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserver(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => observer.observe(section));
+        });
     </script>
 
 </body>
