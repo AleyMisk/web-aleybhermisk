@@ -87,27 +87,28 @@
         }
 
         .bio-pill {
-            background: white;
+            background: #fffdf9;
             padding: 12px 30px;
             border-radius: 30px;
             color: #666;
             font-weight: 500;
             margin: 15px 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            border: 2px solid #ffe6eb;
         }
 
         .stats-text {
             font-weight: 600;
-            color: #666;
+            color: #555;
             font-size: 1.1rem;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Contenedor principal con fondo crema/pastel suave en lugar de blanco plano */
+        /* Contenedor principal con tono pastel cálido y amigable a la vista */
         .content-card {
-            background: linear-gradient(180deg, #fffdf9 0%, #fff4f7 100%);
+            background: linear-gradient(180deg, #fffcf7 0%, #fff4f7 100%);
             border-radius: 40px 40px 0 0;
-            padding: 60px 40px 0 40px;
+            padding: 60px 40px 40px 40px;
             margin-top: -40px;
             position: relative;
             z-index: 3;
@@ -118,7 +119,7 @@
             max-width: 1300px;
             margin: 0 auto 70px auto;
             
-            /* Clases para la animación de scroll */
+            /* Animación de scroll */
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -147,26 +148,26 @@
             justify-content: center;
         }
 
-        /* Tarjetas con sombras estéticas */
+        /* Tarjetas con tono crema suave y sombras estéticas */
         .video-card, .short-card {
-            background: #ffffff;
+            background: #fffdfa;
             border-radius: 22px;
             padding: 14px;
             position: relative;
             overflow: hidden;
             text-align: center;
             border: 2px solid #ffe6eb;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(255, 133, 162, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(255, 133, 162, 0.08);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-card:hover, .short-card:hover {
             transform: translateY(-6px);
             border-color: #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.35);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.3);
         }
 
-        /* Ventanita flotante animada con el título al pasar el cursor */
+        /* Ventanita flotante animada con el título */
         .video-title-popup {
             position: absolute;
             bottom: 15px;
@@ -263,7 +264,7 @@
 
         /* Tier List */
         .tier-list-container {
-            background: #ffffff;
+            background: #fffdfa;
             border: 2px solid #ffe6eb;
             border-radius: 24px;
             padding: 30px;
@@ -343,9 +344,10 @@
             margin-top: 20px;
         }
 
-        /* Redes Sociales */
+        /* Redes Sociales integradas dentro del cuerpo de la tarjeta */
         .social-section {
             text-align: center;
+            margin-bottom: 20px;
         }
         
         .social-links {
@@ -366,8 +368,8 @@
             font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 2px solid rgba(255,255,255,0.5);
         }
 
         .btn-yt { background: linear-gradient(135deg, #ff4e50, #f9d423); color: white; }
@@ -376,18 +378,16 @@
 
         .btn:hover {
             transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
-        /* Pie de página diferenciado para que se note claramente el final */
+        /* Pie de página unificado y estético al final */
         .footer-section {
             background-color: #2b2b2b;
             color: #fff;
-            padding: 40px 20px;
+            padding: 35px 20px;
             text-align: center;
-            border-radius: 40px 40px 0 0;
-            margin-top: 80px;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+            border-top: 3px solid #ffb6c1;
         }
 
         .footer-credits {
@@ -417,7 +417,7 @@
             </div>
         </section>
 
-        <!-- Contenedor Principal -->
+        <!-- Contenedor Principal (Fondo Pastel y limpio) -->
         <div class="content-card">
             
             <!-- Sección YouTube (Videos Largos) -->
@@ -485,19 +485,19 @@
                 </div>
             </section>
 
-            <!-- Redes -->
+            <!-- Redes (Integradas dentro del cuerpo pastel) -->
             <section class="section social-section">
                 <h2 class="section-title" style="justify-content: center;">Sígueme en mis redes 💖</h2>
                 <div class="social-links">
                     <a href="https://youtube.com/@AleyMK" target="_blank" class="btn btn-yt">▶ YouTube</a>
-                    <a href="#" class="btn btn-ig">📷 Instagram</a>
-                    <a href="#" class="btn btn-lt">🔗 Linktree</a>
+                    <a href="https://instagram.com" target="_blank" class="btn btn-ig">📷 Instagram</a>
+                    <a href="https://linktr.ee" target="_blank" class="btn btn-lt">🔗 Linktree</a>
                 </div>
             </section>
 
         </div> <!-- Fin de content-card -->
 
-        <!-- Footer Diferenciado (Final de página) -->
+        <!-- Footer Diferenciado al Final -->
         <footer class="footer-section">
             <div class="footer-credits">
                 © 2026 AleybherMisk. Todos los derechos reservados.<br>
