@@ -104,7 +104,7 @@
             text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Contenedor principal con un fondo pastel suave y agradable desde arriba */
+        /* Contenedor principal con fondo pastel suave */
         .content-card {
             background: linear-gradient(180deg, #ffeef3 0%, #fff2f5 50%, #fff7f9 100%);
             border-radius: 40px 40px 0 0;
@@ -148,7 +148,7 @@
             justify-content: center;
         }
 
-        /* Tarjetas con tono pastel suave y sombras estéticas */
+        /* Tarjetas con sombras estéticas */
         .video-card, .short-card {
             background: #fffdfa;
             border-radius: 22px;
@@ -262,86 +262,115 @@
         .scroll-left { left: -20px; }
         .scroll-right { right: -20px; }
 
-        /* Tier List */
-        .tier-list-container {
+        /* Estilos del Ranking de Comentarios */
+        .ranking-container {
             background: #fffdfa;
             border: 2px solid #ffe6eb;
             border-radius: 24px;
-            padding: 30px;
+            padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
 
-        .tier-list-container h2 {
+        .ranking-subtitle {
             text-align: center;
-            margin-top: 0;
-        }
-
-        .tier-subtitle {
-            text-align: center;
-            color: #888;
+            color: #777;
             margin-bottom: 30px;
+            font-size: 1.05rem;
         }
 
-        .tier-row {
+        .ranking-list {
             display: flex;
-            background: #2b2b2b;
-            margin-bottom: 15px;
-            border-radius: 16px;
-            overflow: hidden;
-            min-height: 80px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .tier-label {
-            width: 100px;
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            background: #fff6f8;
+            border: 2px solid #ffd1dc;
+            border-radius: 18px;
+            padding: 14px 22px;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ranking-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.2);
+        }
+
+        /* Destacados para el podio (Top 3) */
+        .ranking-item.top-1 {
+            background: linear-gradient(135deg, #fffdf0 0%, #fff9c4 100%);
+            border-color: #fbc02d;
+        }
+
+        .ranking-item.top-2 {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e0e0e0 100%);
+            border-color: #b0bec5;
+        }
+
+        .ranking-item.top-3 {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-color: #ffb74d;
+        }
+
+        .ranking-pos {
+            font-size: 1.5rem;
+            font-weight: 700;
+            width: 40px;
+            text-align: center;
+            color: #444;
+        }
+
+        .ranking-avatar {
+            width: 55px;
+            height: 55px;
+            background: #ffb6c1;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .ranking-info {
+            flex-grow: 1;
+        }
+
+        .ranking-name {
+            font-weight: 700;
+            font-size: 1.1rem;
             color: #2b2b2b;
         }
 
-        .tier-s { background-color: #fff9c4; }
-        .tier-a { background-color: #ffc4d9; }
-        .tier-b { background-color: #ffb6c1; }
-
-        .tier-content {
-            padding: 10px 20px;
-            flex-grow: 1;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
+        .ranking-comments {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 2px;
         }
 
-        .sub-avatar-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .sub-avatar {
-            width: 50px;
-            height: 50px;
-            background: #444;
-            border-radius: 50%;
-            border: 2px solid #ffb6c1;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .sub-name {
+        .ranking-badge {
+            background: #ff85a2;
             color: white;
-            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 133, 162, 0.3);
         }
 
-        .tier-footer {
+        .ranking-footer {
             text-align: center;
-            color: #aaa;
+            color: #888;
             font-size: 0.9rem;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         /* Redes Sociales */
@@ -417,7 +446,7 @@
             </div>
         </section>
 
-        <!-- Contenedor Principal (Fondo Pastel Suave Arriba y Abajo) -->
+        <!-- Contenedor Principal -->
         <div class="content-card">
             
             <!-- Sección YouTube (Videos Largos) -->
@@ -440,48 +469,68 @@
                 </div>
             </section>
 
-            <!-- Tier List -->
+            <!-- Ranking de Comentarios (Antes Tier List) -->
             <section class="section">
-                <div class="tier-list-container">
-                    <h2 class="section-title" style="justify-content: center; margin-bottom: 5px;">Tier List de Subs 🏆</h2>
-                    <p class="tier-subtitle">Los que más comentan y apoyan el canal</p>
+                <div class="ranking-container">
+                    <h2 class="section-title" style="justify-content: center; margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
+                    <p class="ranking-subtitle">¡Los miembros más activos de la comunidad que siempre parten el chat!</p>
                     
-                    <div class="tier-row">
-                        <div class="tier-label tier-s">S</div>
-                        <div class="tier-content">
-                            <div class="sub-avatar-container">
-                                <div class="sub-avatar"></div>
-                                <span class="sub-name">@Marxi</span>
+                    <div class="ranking-list">
+                        <!-- Top 1 -->
+                        <div class="ranking-item top-1">
+                            <div class="ranking-pos">🥇</div>
+                            <div class="ranking-avatar">M</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">@Marxi</div>
+                                <div class="ranking-comments">Siempre activo en cada estreno</div>
                             </div>
-                            <div class="sub-avatar-container">
-                                <div class="sub-avatar"></div>
-                                <span class="sub-name">@Junky</span>
+                            <div class="ranking-badge">#1 Más activo</div>
+                        </div>
+
+                        <!-- Top 2 -->
+                        <div class="ranking-item top-2">
+                            <div class="ranking-pos">🥈</div>
+                            <div class="ranking-avatar">J</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">@Junky</div>
+                                <div class="ranking-comments">Comentarios legendarios</div>
+                            </div>
+                            <div class="ranking-badge">#2 Puesto</div>
+                        </div>
+
+                        <!-- Top 3 -->
+                        <div class="ranking-item top-3">
+                            <div class="ranking-pos">🥉</div>
+                            <div class="ranking-avatar">A</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">@Anderson</div>
+                                <div class="ranking-comments">Apoyando desde el día uno</div>
+                            </div>
+                            <div class="ranking-badge">#3 Puesto</div>
+                        </div>
+
+                        <!-- Puesto 4 -->
+                        <div class="ranking-item">
+                            <div class="ranking-pos">4</div>
+                            <div class="ranking-avatar">G</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">@GamerPro</div>
+                                <div class="ranking-comments">Comenta en todos los shorts</div>
+                            </div>
+                        </div>
+
+                        <!-- Puesto 5 -->
+                        <div class="ranking-item">
+                            <div class="ranking-pos">5</div>
+                            <div class="ranking-avatar">L</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">@Loki</div>
+                                <div class="ranking-comments">¡Súper activo en la comunidad!</div>
                             </div>
                         </div>
                     </div>
-                    <div class="tier-row">
-                        <div class="tier-label tier-a">A</div>
-                        <div class="tier-content">
-                            <div class="sub-avatar-container">
-                                <div class="sub-avatar"></div>
-                                <span class="sub-name">@Anderson</span>
-                            </div>
-                            <div class="sub-avatar-container">
-                                <div class="sub-avatar"></div>
-                                <span class="sub-name">@GamerPro</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tier-row">
-                        <div class="tier-label tier-b">B</div>
-                        <div class="tier-content">
-                            <div class="sub-avatar-container">
-                                <div class="sub-avatar"></div>
-                                <span class="sub-name">@Loki</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="tier-footer">* Comenta en los próximos videos para subir de Tier! *</p>
+
+                    <p class="ranking-footer">✨ ¡Deja tu comentario en el último video para aparecer en el ranking! ✨</p>
                 </div>
             </section>
 
