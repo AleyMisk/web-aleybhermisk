@@ -64,6 +64,12 @@
         .profile-container {
             position: relative;
             margin-bottom: 20px;
+            animation: floatAvatar 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .profile-pic {
@@ -110,6 +116,12 @@
             margin: 0;
             font-weight: 700;
             text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.6);
+            animation: idleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes idleGlow {
+            0% { text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255,182,193,0.2); }
+            100% { text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255,105,180,0.4); }
         }
 
         .bio-pill {
@@ -121,6 +133,12 @@
             margin: 15px 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.06);
             border: 2px solid #ffe6eb;
+            animation: subtlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .stats-text {
@@ -153,7 +171,7 @@
             transform: translateY(0);
         }
 
-        /* Títulos alineados a la izquierda */
+        /* Títulos predeterminados a la izquierda (Videos y Shorts) */
         .section-title {
             font-size: 2rem;
             color: #2b2b2b;
@@ -165,6 +183,19 @@
             gap: 12px;
             text-align: left;
             padding-left: 10px;
+            animation: titleIdle 5s ease-in-out infinite;
+        }
+
+        @keyframes titleIdle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Clases específicas para títulos centrados (Ranking y Redes) */
+        .section-title.centered {
+            justify-content: center;
+            padding-left: 0;
+            text-align: center;
         }
 
         .video-grid {
@@ -408,11 +439,18 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
+            animation: btnPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 133, 162, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 8px 25px rgba(255, 133, 162, 0.6); }
         }
 
         .btn-open-modal:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(255, 133, 162, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 133, 162, 0.7);
+            animation: none;
         }
 
         .modal-overlay {
@@ -575,7 +613,7 @@
         <section class="hero">
             <div class="bg-text">WOLANDA</div>
             <div class="hero-content">
-                <!-- Avatar decorado con los accesorios reales Hat.png y StarGlassed.png de GitHub -->
+                <!-- Avatar decorado con los accesorios reales Hat.png y StarGlassed.png -->
                 <div class="profile-container">
                     <img src="Hat.png" alt="Gorro" class="profile-cap">
                     <img src="StarGlassed.png" alt="Lentes de estrella" class="profile-glasses">
@@ -594,7 +632,7 @@
         <!-- Contenedor Principal -->
         <div class="content-card">
             
-            <!-- Sección YouTube (Videos Largos) -->
+            <!-- Sección YouTube (Videos Largos) - Alineado a la izquierda -->
             <section class="section">
                 <h2 class="section-title">Últimos Videos 🎬</h2>
                 <div class="video-grid" id="videos-youtube">
@@ -602,7 +640,7 @@
                 </div>
             </section>
 
-            <!-- Sección YouTube Shorts -->
+            <!-- Sección YouTube Shorts - Alineado a la izquierda -->
             <section class="section">
                 <h2 class="section-title">YouTube Shorts 📱</h2>
                 <div class="shorts-wrapper">
@@ -614,10 +652,10 @@
                 </div>
             </section>
 
-            <!-- Ranking de Comentarios -->
+            <!-- Ranking de Comentarios - Título Centrado -->
             <section class="section">
                 <div class="ranking-container">
-                    <h2 class="section-title" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
+                    <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
                     <p class="ranking-subtitle">¡Los miembros más activos de la comunidad que siempre parten el chat!</p>
                     
                     <!-- Vista previa Top 3 -->
@@ -663,9 +701,9 @@
                 </div>
             </section>
 
-            <!-- Redes -->
+            <!-- Redes - Título Centrado -->
             <section class="section social-section">
-                <h2 class="section-title">Sígueme en mis redes 💖</h2>
+                <h2 class="section-title centered">Sígueme en mis redes 💖</h2>
                 <div class="social-links">
                     <a href="https://youtube.com/@AleyMK" target="_blank" class="btn btn-yt">▶ YouTube</a>
                     <a href="https://instagram.com" target="_blank" class="btn btn-ig">📷 Instagram</a>
@@ -802,7 +840,6 @@
                         `;
                         countShorts++;
                     } else {
-                        // URL corregida a youtube.com/embed/ para evitar el error 404
                         contenedorVideos.innerHTML += `
                             <div class="video-card">
                                 <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
@@ -859,7 +896,7 @@
 
         const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
-            entries.exports = entries.forEach(entry => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserver(entry.target);
