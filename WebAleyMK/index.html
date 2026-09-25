@@ -73,7 +73,8 @@
             color: white;
             font-weight: bold;
             border: 6px solid #fff9c4;
-            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.5);
+            /* Sombra estética y suave para la foto de perfil */
+            box-shadow: 0 10px 25px rgba(255, 133, 162, 0.4);
             margin-bottom: 20px;
             position: relative;
         }
@@ -83,38 +84,41 @@
             color: #2b2b2b;
             margin: 0;
             font-weight: 700;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.6);
         }
 
         .bio-pill {
             background: white;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             color: #666;
             font-weight: 500;
             margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            /* Sombra suave en la pastilla de biografía */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
         }
 
         .stats-text {
             font-weight: 600;
-            color: #888;
+            color: #666;
             font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Contenedor principal de contenido */
+        /* Contenedor principal de contenido con sombra elegante superior */
         .content-card {
             background: white;
             border-radius: 40px 40px 0 0;
-            padding: 50px 40px;
+            padding: 60px 40px;
             margin-top: -40px;
             position: relative;
             z-index: 3;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.08);
         }
 
         .section {
             max-width: 1300px;
-            margin: 0 auto 60px auto;
+            margin: 0 auto 70px auto;
         }
 
         .section-title {
@@ -135,41 +139,41 @@
             justify-content: center;
         }
 
-        /* Estilos generales para las tarjetas con efecto hover inmersivo */
+        /* Tarjetas con sombras suaves y estéticas que dan volumen */
         .video-card, .short-card {
             background: #fff9e6;
-            border-radius: 20px;
-            padding: 12px;
+            border-radius: 22px;
+            padding: 14px;
             position: relative;
             overflow: hidden;
             text-align: center;
             border: 2px solid transparent;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-card:hover, .short-card:hover {
             transform: translateY(-6px);
             border-color: #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            box-shadow: 0 12px 28px rgba(255, 182, 193, 0.35);
         }
 
-        /* Ventanita flotante animada con el título al pasar el cursor */
+        /* Ventanita flotante animada con el título */
         .video-title-popup {
             position: absolute;
             bottom: 15px;
             left: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(6px);
             color: #2b2b2b;
             padding: 12px 18px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 0.95rem;
             font-weight: 600;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
             border: 2px solid #ffb6c1;
             
-            /* Animación de entrada inicial (oculto) */
             opacity: 0;
             transform: translateY(15px) scale(0.95);
             pointer-events: none;
@@ -177,7 +181,6 @@
             z-index: 5;
         }
 
-        /* Al hacer hover sobre la tarjeta, aparece la ventanita suavemente */
         .video-card:hover .video-title-popup, 
         .short-card:hover .video-title-popup {
             opacity: 1;
@@ -193,10 +196,10 @@
 
         .shorts-container {
             display: flex;
-            gap: 20px;
+            gap: 22px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 10px 5px 20px 5px;
+            padding: 15px 5px 25px 5px;
             width: 100%;
             scrollbar-width: thin;
             scrollbar-color: #ffb6c1 #f0f0f0;
@@ -215,7 +218,7 @@
             flex: 0 0 280px;
         }
 
-        /* Botones deslizadores con animación suave */
+        /* Botones deslizadores con sombra */
         .scroll-btn {
             position: absolute;
             z-index: 10;
@@ -227,7 +230,7 @@
             border-radius: 50%;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 18px rgba(255, 133, 162, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,12 +253,13 @@
         .scroll-left { left: -20px; }
         .scroll-right { right: -20px; }
 
-        /* Tier List */
+        /* Tier List con sombra ligera */
         .tier-list-container {
             background: #fff;
             border: 2px solid #ffe6eb;
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
 
         .tier-list-container h2 {
@@ -273,9 +277,10 @@
             display: flex;
             background: #2b2b2b;
             margin-bottom: 15px;
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
             min-height: 80px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .tier-label {
@@ -314,6 +319,7 @@
             background: #444;
             border-radius: 50%;
             border: 2px solid #ffb6c1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .sub-name {
@@ -329,7 +335,7 @@
             margin-top: 20px;
         }
 
-        /* Redes Sociales */
+        /* Redes Sociales con sombras bonitas en los botones */
         .social-section {
             text-align: center;
         }
@@ -352,7 +358,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             border: 2px solid rgba(255,255,255,0.4);
         }
 
@@ -362,7 +368,7 @@
 
         .btn:hover {
             transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
         }
         
         .footer-credits {
@@ -479,7 +485,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE YOUTUBE CON POPUP ANIMADO -->
+    <!-- SCRIPT DE YOUTUBE -->
     <script>
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
