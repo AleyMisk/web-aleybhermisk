@@ -417,15 +417,15 @@
             gap: 15px;
         }
 
-        /* 🌈 ESTILO CON ESTELA RGB ANIMADA */
+        /* 🌈 ANIMACIÓN RGB CONTINUA Y SUAVE (SIN SALTOS) */
         .ranking-footer {
             font-size: 1rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #ff007f, #ff758c, #7b2cbf, #00f5d4, #ff007f);
-            background-size: 300% 100%;
+            background: linear-gradient(90deg, #ff007f, #7b2cbf, #00f5d4, #ff758c, #ff007f);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: rgbTrail 4s linear infinite, glowPulse 2s ease-in-out infinite alternate;
+            animation: rgbTrail 5s ease-in-out infinite alternate, glowPulse 2s ease-in-out infinite alternate;
             display: inline-block;
         }
 
@@ -639,7 +639,6 @@
 
         async function cargarRankingFirebase() {
             try {
-                // ORDENAR POR PUESTO ASCENDENTE (Puesto 1, 2, 3...)
                 const q = query(collection(db, "ranking_2026"), orderBy("puesto", "asc"));
                 const querySnapshot = await getDocs(q);
                 
