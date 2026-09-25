@@ -135,18 +135,53 @@
             justify-content: center;
         }
 
-        .video-card {
+        /* Estilos generales para las tarjetas con efecto hover inmersivo */
+        .video-card, .short-card {
             background: #fff9e6;
             border-radius: 20px;
-            padding: 15px;
-            transition: transform 0.3s;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
             text-align: center;
             border: 2px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .video-card:hover {
-            transform: translateY(-5px);
+        .video-card:hover, .short-card:hover {
+            transform: translateY(-6px);
             border-color: #ffb6c1;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+        }
+
+        /* Ventanita flotante animada con el título al pasar el cursor */
+        .video-title-popup {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            color: #2b2b2b;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 2px solid #ffb6c1;
+            
+            /* Animación de entrada inicial (oculto) */
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 5;
+        }
+
+        /* Al hacer hover sobre la tarjeta, aparece la ventanita suavemente */
+        .video-card:hover .video-title-popup, 
+        .short-card:hover .video-title-popup {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         /* Contenedor del Carrusel de Shorts */
@@ -178,20 +213,9 @@
 
         .short-card {
             flex: 0 0 280px;
-            background: #fff9e6;
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: transform 0.3s;
         }
 
-        .short-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffb6c1;
-        }
-
-        /* Botones deslizadores con animación suave de aparición/desaparición */
+        /* Botones deslizadores con animación suave */
         .scroll-btn {
             position: absolute;
             z-index: 10;
@@ -207,8 +231,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            
-            /* Animación suave */
             opacity: 1;
             transform: scale(1);
             transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s;
@@ -219,7 +241,6 @@
             transform: scale(1.1);
         }
 
-        /* Clase para ocultar las flechas con animación hacia adentro */
         .scroll-btn.hidden {
             opacity: 0;
             transform: scale(0.5);
@@ -383,7 +404,7 @@
                 </div>
             </section>
 
-            <!-- Sección YouTube Shorts (Carrusel Horizontal con Flechas Animadas) -->
+            <!-- Sección YouTube Shorts -->
             <section class="section">
                 <h2 class="section-title">YouTube Shorts 📱</h2>
                 <div class="shorts-wrapper">
@@ -458,7 +479,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE YOUTUBE Y ANIMACIÓN DE FLECHAS -->
+    <!-- SCRIPT DE YOUTUBE CON POPUP ANIMADO -->
     <script>
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
@@ -502,16 +523,16 @@
                     if (esShort) {
                         contenedorShorts.innerHTML += `
                             <div class="short-card">
-                                <iframe width="100%" height="380" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <h3 style="font-size: 1rem; color: #333; margin-top: 10px; font-weight: 600;">${titulo}</h3>
+                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
+                                <div class="video-title-popup">${titulo}</div>
                             </div>
                         `;
                         countShorts++;
                     } else {
                         contenedorVideos.innerHTML += `
                             <div class="video-card">
-                                <iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <h3 style="font-size: 1.1rem; color: #333; margin-top: 15px; font-weight: 600;">${titulo}</h3>
+                                <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
+                                <div class="video-title-popup">${titulo}</div>
                             </div>
                         `;
                         countVideos++;
@@ -525,22 +546,19 @@
                     contenedorShorts.innerHTML = '<p style="text-align: center; width: 100%; color: #888;">No hay Shorts recientes.</p>';
                 }
 
-                // Verificamos el estado inicial de las flechas tras cargar los shorts
                 setTimeout(checkScrollArrows, 100);
             })
             .catch(error => {
                 console.error('Error al cargar videos:', error);
             });
 
-        // Función para mover el carrusel con las flechas
         function scrollShorts(direction) {
             const container = document.getElementById('shorts-youtube');
             const scrollAmount = 320; 
             container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-            setTimeout(checkScrollArrows, 300); // Actualiza estado tras la animación
+            setTimeout(checkScrollArrows, 300);
         }
 
-        // Función para mostrar/ocultar las flechas con animación según el scroll
         function checkScrollArrows() {
             const container = document.getElementById('shorts-youtube');
             const btnLeft = document.getElementById('btn-left');
@@ -548,18 +566,16 @@
 
             if (!container) return;
 
-            const tolerance = 5; // Margen de tolerancia en píxeles
+            const tolerance = 5;
             const atStart = container.scrollLeft <= tolerance;
             const atEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - tolerance;
 
-            // Ocultar o mostrar flecha izquierda
             if (atStart) {
                 btnLeft.classList.add('hidden');
             } else {
                 btnLeft.classList.remove('hidden');
             }
 
-            // Ocultar o mostrar flecha derecha
             if (atEnd) {
                 btnRight.classList.add('hidden');
             } else {
