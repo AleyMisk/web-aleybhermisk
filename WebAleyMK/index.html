@@ -106,21 +106,13 @@
             transition: transform 0.3s;
             text-align: center;
             border: 3px solid #fdfd96;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .video-card:hover {
             transform: translateY(-10px);
-        }
-
-        .video-placeholder {
-            background-color: #eee;
-            border-radius: 10px;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            margin-bottom: 15px;
         }
 
         /* Tier List */
@@ -207,22 +199,12 @@
         <img src="StarGlassed.png" alt="Star Glasses" class="prop-glasses">
     </section>
 
+    <!-- Sección donde cargan los videos de YouTube -->
     <section class="section">
         <div style="text-align: center;"><h2>Últimos Videos y Shorts</h2></div>
-        <p style="text-align: center; color: #666; margin-bottom: 30px;">(Aquí se conectará la API de YouTube pronto 🤖)</p>
-        <div class="video-grid">
-            <div class="video-card">
-                <div class="video-placeholder">Miniatura del Video 1</div>
-                <h3>Título del video épico</h3>
-            </div>
-            <div class="video-card">
-                <div class="video-placeholder">Miniatura del Video 2</div>
-                <h3>Título del video épico</h3>
-            </div>
-            <div class="video-card">
-                <div class="video-placeholder">Short 1</div>
-                <h3>Short Épico</h3>
-            </div>
+        <div class="video-grid" id="videos-youtube">
+            <!-- Texto de carga mientras la API responde -->
+            <p style="text-align: center; grid-column: 1 / -1; color: #666;">Cargando videos épicos...</p>
         </div>
     </section>
 
@@ -258,6 +240,43 @@
         <a href="#" class="btn" style="background-color: #333;">TikTok</a>
         <a href="#" class="btn" style="background-color: #7289da;">Discord</a>
     </section>
+
+    <!-- SCRIPT DE YOUTUBE: Aquí ocurre la magia -->
+    <script>
+        // ⚠️ RECUERDA CAMBIAR ESTOS DOS VALORES ⚠️
+        const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
+        const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
+        const maxVideos = 3; // Mostrará los últimos 3 videos
+
+        const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxVideos}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const contenedor = document.getElementById('videos-youtube');
+                contenedor.innerHTML = ''; // Limpiamos el texto de "Cargando..."
+                
+                data.items.forEach(item => {
+                    // Verificamos si es un video (no una playlist o canal)
+                    if(item.id.videoId) {
+                        const videoId = item.id.videoId;
+                        const titulo = item.snippet.title;
+                        
+                        // Armamos el HTML del reproductor con tu estilo
+                        contenedor.innerHTML += `
+                            <div class="video-card">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 10px;"></iframe>
+                                <h3 style="font-size: 1.1rem; color: #333; margin-top: 15px;">${titulo}</h3>
+                            </div>
+                        `;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar videos:', error);
+                document.getElementById('videos-youtube').innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #ff7b7b;">¡Ups! Hubo un problema cargando los videos.</p>';
+            });
+    </script>
 
 </body>
 </html>
