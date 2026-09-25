@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AleybherMisk | Oficial</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6eb; /* Rosado suavecito */
+            font-family: 'Fredoka', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Sección Hero con WOLANDA */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffe6eb 0%, #fff0f5 100%);
+            overflow: hidden;
+        }
+
+        .bg-text {
+            position: absolute;
+            font-size: 15vw;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: #ff85a2;
+            margin: 0;
+            text-shadow: 2px 2px 0px #fdfd96; /* Toque de amarillo suave */
+            position: relative;
+        }
+
+        /* Props flotantes */
+        .prop-hat {
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            width: 80px;
+            transform: rotate(-15deg);
+        }
+
+        .prop-glasses {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            width: 120px;
+            transform: rotate(10deg);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(10deg); }
+            50% { transform: translateY(-15px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(10deg); }
+        }
+
+        /* Secciones de Contenido */
+        .section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #ff85a2;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 4px dashed #fdfd96;
+            display: inline-block;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            text-align: center;
+            border: 3px solid #fdfd96;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .video-placeholder {
+            background-color: #eee;
+            border-radius: 10px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        /* Tier List */
+        .tier-row {
+            display: flex;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .tier-label {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .tier-s { background-color: #ff7b7b; }
+        .tier-a { background-color: #ffb77b; }
+        .tier-b { background-color: #fdfd96; color: #333; }
+
+        .tier-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .sub-avatar {
+            width: 50px;
+            height: 50px;
+            background: #ffe6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ff85a2;
+        }
+
+        /* Botones / Redes */
+        .social-links {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #ff85a2;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
+        }
+
+        .btn:hover {
+            background-color: #ff6b8b;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="bg-text">WOLANDA</div>
+        <div class="hero-content">
+            <h1>
+                <img src="Hat.png" alt="Hat Prop" class="prop-hat">
+                ALEYBHERMISK
+            </h1>
+            <p>Bienvenido a mi web oficial.</p>
+        </div>
+        <img src="StarGlassed.png" alt="Star Glasses" class="prop-glasses">
+    </section>
+
+    <section class="section">
+        <div style="text-align: center;"><h2>Últimos Videos y Shorts</h2></div>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">(Aquí se conectará la API de YouTube pronto 🤖)</p>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">Miniatura del Video 1</div>
+                <h3>Título del video épico</h3>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">Miniatura del Video 2</div>
+                <h3>Título del video épico</h3>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">Short 1</div>
+                <h3>Short Épico</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div style="text-align: center;"><h2>Tier List: Los Más Activos</h2></div>
+        
+        <div class="tier-row">
+            <div class="tier-label tier-s">S</div>
+            <div class="tier-content">
+                <div class="sub-avatar">User1</div>
+                <div class="sub-avatar">User2</div>
+            </div>
+        </div>
+        <div class="tier-row">
+            <div class="tier-label tier-a">A</div>
+            <div class="tier-content">
+                <div class="sub-avatar">User3</div>
+            </div>
+        </div>
+        <div class="tier-row">
+            <div class="tier-label tier-b">B</div>
+            <div class="tier-content">
+                <div class="sub-avatar">User4</div>
+                <div class="sub-avatar">User5</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section social-links">
+        <h2>Mis Redes</h2>
+        <br>
+        <a href="https://youtube.com/@AleyMK" target="_blank" class="btn">YouTube</a>
+        <a href="#" class="btn" style="background-color: #333;">TikTok</a>
+        <a href="#" class="btn" style="background-color: #7289da;">Discord</a>
+    </section>
+
+</body>
+</html>
