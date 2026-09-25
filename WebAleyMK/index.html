@@ -132,12 +132,6 @@
             margin: 15px 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.06);
             border: 2px solid #ffe6eb;
-            animation: subtlePulse 4s ease-in-out infinite;
-        }
-
-        @keyframes subtlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
         }
 
         .stats-text {
@@ -160,14 +154,6 @@
         .section {
             max-width: 1300px;
             margin: 0 auto 70px auto;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .section-title {
@@ -181,12 +167,6 @@
             gap: 12px;
             text-align: left;
             padding-left: 10px;
-            animation: titleIdle 5s ease-in-out infinite;
-        }
-
-        @keyframes titleIdle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
         }
 
         .section-title.centered {
@@ -194,122 +174,6 @@
             padding-left: 0;
             text-align: center;
         }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
-            gap: 25px;
-            justify-content: center;
-        }
-
-        .video-card, .short-card {
-            background: #fffdfa;
-            border-radius: 22px;
-            padding: 14px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 2px solid #ffe6eb;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(255, 133, 162, 0.08);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .video-card:hover, .short-card:hover {
-            transform: translateY(-6px);
-            border-color: #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.3);
-        }
-
-        .video-title-popup {
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(6px);
-            color: #2b2b2b;
-            padding: 12px 18px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-            border: 2px solid #ffb6c1;
-            opacity: 0;
-            transform: translateY(15px) scale(0.95);
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: 5;
-        }
-
-        .video-card:hover .video-title-popup, 
-        .short-card:hover .video-title-popup {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .shorts-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .shorts-container {
-            display: flex;
-            gap: 22px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 15px 10px 25px 10px;
-            width: 100%;
-            scrollbar-width: thin;
-            scrollbar-color: #ffb6c1 #f0f0f0;
-        }
-
-        .shorts-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .shorts-container::-webkit-scrollbar-thumb {
-            background-color: #ffb6c1;
-            border-radius: 10px;
-        }
-
-        .short-card {
-            flex: 0 0 280px;
-        }
-
-        .scroll-btn {
-            position: absolute;
-            z-index: 10;
-            background-color: #ff85a2;
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 133, 162, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s;
-        }
-
-        .scroll-btn:hover {
-            background-color: #ff6b8b;
-            transform: scale(1.1);
-        }
-
-        .scroll-btn.hidden {
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-        }
-
-        .scroll-left { left: -20px; }
-        .scroll-right { right: -20px; }
 
         .ranking-container {
             background: #fffdfa;
@@ -342,12 +206,6 @@
             padding: 14px 22px;
             gap: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .ranking-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.2);
         }
 
         .ranking-item.top-1 { background: linear-gradient(135deg, #fffdf0 0%, #fff9c4 100%); border-color: #fbc02d; }
@@ -375,7 +233,6 @@
             font-weight: bold;
             color: white;
             font-size: 1.2rem;
-            position: relative;
         }
 
         .ranking-info {
@@ -401,7 +258,6 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 700;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -436,18 +292,11 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            animation: btnPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes btnPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 133, 162, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 8px 25px rgba(255, 133, 162, 0.6); }
         }
 
         .btn-open-modal:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 133, 162, 0.7);
-            animation: none;
         }
 
         .modal-overlay {
@@ -485,7 +334,6 @@
             flex-direction: column;
             transform: scale(0.9) translateY(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
         }
 
         .modal-overlay.active .modal-content {
@@ -524,12 +372,6 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 12px rgba(255, 133, 162, 0.4);
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .modal-close:hover {
-            background: #ff5c8a;
-            transform: scale(1.1);
         }
 
         .modal-body {
@@ -538,17 +380,6 @@
             flex-direction: column;
             gap: 12px;
             padding-right: 5px;
-            scrollbar-width: thin;
-            scrollbar-color: #ffb6c1 #f0f0f0;
-        }
-
-        .modal-body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .modal-body::-webkit-scrollbar-thumb {
-            background-color: #ffb6c1;
-            border-radius: 10px;
         }
 
         .social-section {
@@ -601,8 +432,84 @@
             line-height: 1.6;
         }
     </style>
+</head>
+<body>
 
-    <!-- Conexión a Firebase Firestore y Lógica del Ranking -->
+    <div class="main-container">
+        
+        <section class="hero">
+            <div class="bg-text">WOLANDA</div>
+            <div class="hero-content">
+                <div class="profile-container">
+                    <img src="Hat.png" alt="Gorro" class="profile-cap">
+                    <img src="StarGlassed.png" alt="Lentes de estrella" class="profile-glasses">
+                    <div class="profile-pic">^w^</div>
+                </div>
+                <h1>AleybherMisk</h1>
+                <div class="bio-pill">
+                    Me gusta el minecraft y todo lo juegable en general :p ✨
+                </div>
+                <div class="stats-text">
+                    5.38K Subs &nbsp;•&nbsp; +22 Videos
+                </div>
+            </div>
+        </section>
+
+        <div class="content-card">
+            
+            <!-- SECCIÓN DEL RANKING INTEGRADA -->
+            <section class="section">
+                <div class="ranking-container">
+                    <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
+                    <p class="ranking-subtitle">¡Los miembros más activos de la comunidad que siempre parten el chat!</p>
+                    
+                    <div class="ranking-list" id="preview-ranking">
+                        <p style="text-align: center; color: #888;">Cargando ranking desde la nube...</p>
+                    </div>
+
+                    <div class="ranking-action-area">
+                        <span class="ranking-footer">✨ ¡Deja tu comentario en el último video para aparecer!</span>
+                        <button class="btn-open-modal" onclick="openRankingModal()">
+                            📋 Ver Ranking Completo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section social-section">
+                <h2 class="section-title centered">Sígueme en mis redes 💖</h2>
+                <div class="social-links">
+                    <a href="https://youtube.com/@AleyMK" target="_blank" class="btn btn-yt">▶ YouTube</a>
+                    <a href="https://instagram.com" target="_blank" class="btn btn-ig">📷 Instagram</a>
+                    <a href="https://linktr.ee" target="_blank" class="btn btn-lt">🔗 Linktree</a>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="footer-section">
+            <div class="footer-credits">
+                © 2026 AleybherMisk. Todos los derechos reservados.<br>
+                Diseñado con cariño ✨
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- VENTANA MODAL DEL RANKING COMPLETO -->
+    <div class="modal-overlay" id="rankingModal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">🏆 Ranking Completo de Comentarios</div>
+                <button class="modal-close" onclick="closeRankingModal()">✕</button>
+            </div>
+            <div class="modal-body" id="full-ranking-list">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS DE FIREBASE Y FUNCIONALIDAD -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -679,102 +586,8 @@
             cargarRankingFirebase();
         });
     </script>
-</head>
-<body>
 
-    <div class="main-container">
-        
-        <section class="hero">
-            <div class="bg-text">WOLANDA</div>
-            <div class="hero-content">
-                <div class="profile-container">
-                    <img src="Hat.png" alt="Gorro" class="profile-cap">
-                    <img src="StarGlassed.png" alt="Lentes de estrella" class="profile-glasses">
-                    <div class="profile-pic">^w^</div>
-                </div>
-                <h1>AleybherMisk</h1>
-                <div class="bio-pill">
-                    Me gusta el minecraft y todo lo juegable en general :p ✨
-                </div>
-                <div class="stats-text">
-                    5.38K Subs &nbsp;•&nbsp; +22 Videos
-                </div>
-            </div>
-        </section>
-
-        <div class="content-card">
-            
-            <section class="section">
-                <h2 class="section-title">Últimos Videos 🎬</h2>
-                <div class="video-grid" id="videos-youtube">
-                    <p style="text-align: center; grid-column: 1 / -1; color: #888;">Cargando videos...</p>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2 class="section-title">YouTube Shorts 📱</h2>
-                <div class="shorts-wrapper">
-                    <button class="scroll-btn scroll-left hidden" id="btn-left" onclick="scrollShorts(-1)">❮</button>
-                    <div class="shorts-container" id="shorts-youtube" onscroll="checkScrollArrows()">
-                        <p style="text-align: center; width: 100%; color: #888;">Cargando Shorts...</p>
-                    </div>
-                    <button class="scroll-btn scroll-right" id="btn-right" onclick="scrollShorts(1)">❯</button>
-                </div>
-            </section>
-
-            <!-- SECCIÓN DEL RANKING INTEGRADA -->
-            <section class="section">
-                <div class="ranking-container">
-                    <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
-                    <p class="ranking-subtitle">¡Los miembros más activos de la comunidad que siempre parten el chat!</p>
-                    
-                    <div class="ranking-list" id="preview-ranking">
-                        <p style="text-align: center; color: #888;">Cargando ranking desde la nube...</p>
-                    </div>
-
-                    <div class="ranking-action-area">
-                        <span class="ranking-footer">✨ ¡Deja tu comentario en el último video para aparecer!</span>
-                        <button class="btn-open-modal" onclick="openRankingModal()">
-                            📋 Ver Ranking Completo
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section social-section">
-                <h2 class="section-title centered">Sígueme en mis redes 💖</h2>
-                <div class="social-links">
-                    <a href="https://youtube.com/@AleyMK" target="_blank" class="btn btn-yt">▶ YouTube</a>
-                    <a href="https://instagram.com" target="_blank" class="btn btn-ig">📷 Instagram</a>
-                    <a href="https://linktr.ee" target="_blank" class="btn btn-lt">🔗 Linktree</a>
-                </div>
-            </section>
-
-        </div>
-
-        <footer class="footer-section">
-            <div class="footer-credits">
-                © 2026 AleybherMisk. Todos los derechos reservados.<br>
-                Diseñado con cariño ✨
-            </div>
-        </footer>
-
-    </div>
-
-    <!-- VENTANA MODAL DEL RANKING COMPLETO -->
-    <div class="modal-overlay" id="rankingModal" onclick="closeModalOutside(event)">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">🏆 Ranking Completo de Comentarios</div>
-                <button class="modal-close" onclick="closeRankingModal()">✕</button>
-            </div>
-            <div class="modal-body" id="full-ranking-list">
-                <!-- Se llena dinámicamente -->
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPT PARA CONTROLAR EL MODAL -->
+    <!-- SCRIPT DEL MODAL -->
     <script>
         function openRankingModal() {
             document.getElementById('rankingModal').classList.add('active');
@@ -785,7 +598,6 @@
         }
 
         function closeModalOutside(event) {
-            const modalContent = document.querySelector('.modal-content');
             if (event.target === document.getElementById('rankingModal')) {
                 closeRankingModal();
             }
