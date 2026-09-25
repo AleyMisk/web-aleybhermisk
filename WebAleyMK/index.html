@@ -18,7 +18,6 @@
             justify-content: center;
         }
 
-        /* Pantalla completa */
         .main-container {
             width: 100%;
             background-color: #ffd6e0;
@@ -29,7 +28,6 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
-        /* Sección Hero */
         .hero {
             position: relative;
             height: 80vh;
@@ -62,7 +60,7 @@
             position: relative;
         }
 
-        /* Decoración de gorro y lentes en el avatar */
+        /* Avatar con accesorios reales de GitHub (Hat.png y StarGlassed.png) */
         .profile-container {
             position: relative;
             margin-bottom: 20px;
@@ -86,22 +84,24 @@
 
         .profile-cap {
             position: absolute;
-            top: -28px;
+            top: -45px;
             left: 50%;
-            transform: translateX(-50%) rotate(-10deg);
-            font-size: 3.2rem;
+            transform: translateX(-50%) rotate(-8deg);
+            width: 110px;
             z-index: 10;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            pointer-events: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
         }
 
         .profile-glasses {
             position: absolute;
-            top: 48px;
+            top: 52px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2.2rem;
+            width: 95px;
             z-index: 10;
             pointer-events: none;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         .hero-content h1 {
@@ -130,7 +130,6 @@
             text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Contenedor principal con fondo pastel suave */
         .content-card {
             background: linear-gradient(180deg, #ffeef3 0%, #fff2f5 50%, #fff7f9 100%);
             border-radius: 40px 40px 0 0;
@@ -154,6 +153,7 @@
             transform: translateY(0);
         }
 
+        /* Títulos alineados a la izquierda */
         .section-title {
             font-size: 2rem;
             color: #2b2b2b;
@@ -161,11 +161,12 @@
             font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 12px;
+            text-align: left;
+            padding-left: 10px;
         }
 
-        /* Videos Largos */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
@@ -218,7 +219,6 @@
             transform: translateY(0) scale(1);
         }
 
-        /* Carrusel Shorts */
         .shorts-wrapper {
             position: relative;
             display: flex;
@@ -283,7 +283,6 @@
         .scroll-left { left: -20px; }
         .scroll-right { right: -20px; }
 
-        /* Ranking de Comentarios */
         .ranking-container {
             background: #fffdfa;
             border: 2px solid #ffe6eb;
@@ -416,7 +415,6 @@
             box-shadow: 0 10px 25px rgba(255, 133, 162, 0.6);
         }
 
-        /* MODAL FULL RANKING CON FADE INMERSIOVO */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -518,7 +516,6 @@
             border-radius: 10px;
         }
 
-        /* Redes Sociales */
         .social-section {
             text-align: center;
             margin-bottom: 20px;
@@ -555,7 +552,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
-        /* Pie de página */
         .footer-section {
             background-color: #2b2b2b;
             color: #fff;
@@ -569,7 +565,6 @@
             font-size: 0.95rem;
             line-height: 1.6;
         }
-
     </style>
 </head>
 <body>
@@ -580,10 +575,10 @@
         <section class="hero">
             <div class="bg-text">WOLANDA</div>
             <div class="hero-content">
-                <!-- Avatar decorado con gorro y lentes -->
+                <!-- Avatar decorado con los accesorios reales Hat.png y StarGlassed.png de GitHub -->
                 <div class="profile-container">
-                    <div class="profile-cap">🧢</div>
-                    <div class="profile-glasses">🕶️</div>
+                    <img src="Hat.png" alt="Gorro" class="profile-cap">
+                    <img src="StarGlassed.png" alt="Lentes de estrella" class="profile-glasses">
                     <div class="profile-pic">^w^</div>
                 </div>
                 <h1>AleybherMisk</h1>
@@ -622,7 +617,7 @@
             <!-- Ranking de Comentarios -->
             <section class="section">
                 <div class="ranking-container">
-                    <h2 class="section-title" style="margin-bottom: 5px;">Ranking de Comentarios 💬 🕶️</h2>
+                    <h2 class="section-title" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
                     <p class="ranking-subtitle">¡Los miembros más activos de la comunidad que siempre parten el chat!</p>
                     
                     <!-- Vista previa Top 3 -->
@@ -703,9 +698,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE YOUTUBE, MODAL Y ANIMACIÓN -->
     <script>
-        // Lista completa de la comunidad con sus comentarios
         const fullRankingData = [
             { pos: 1, name: "@Marxi", comments: 142, desc: "Siempre activo en cada estreno" },
             { pos: 2, name: "@Junky", comments: 118, desc: "Comentarios legendarios" },
@@ -719,7 +712,6 @@
             { pos: 10, name: "@LuciaPlay", comments: 25, desc: "¡Incondicional del canal!" }
         ];
 
-        // Llenar modal completo al iniciar
         document.addEventListener("DOMContentLoaded", () => {
             const modalList = document.getElementById('full-ranking-list');
             modalList.innerHTML = '';
@@ -745,10 +737,9 @@
             });
         });
 
-        // Funciones del Modal con Fade / Animación
         function openRankingModal() {
             document.getElementById('rankingModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+            document.body.style.overflow = 'hidden';
         }
 
         function closeRankingModal() {
@@ -763,7 +754,6 @@
             }
         }
 
-        // API de YouTube
         const apiKey = 'AIzaSyDS5aK-548e8FsPImJvj6g9wEPqLvXTG8s'; 
         const channelId = 'UCy4WyhOd6dvHanx89-hLABw'; 
         const maxResults = 15;
@@ -812,9 +802,10 @@
                         `;
                         countShorts++;
                     } else {
+                        // URL corregida a youtube.com/embed/ para evitar el error 404
                         contenedorVideos.innerHTML += `
                             <div class="video-card">
-                                <iframe width="100%" height="230" src="https://www.googleapis.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
+                                <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
                                 <div class="video-title-popup">${titulo}</div>
                             </div>
                         `;
@@ -866,10 +857,9 @@
             }
         }
 
-        /* Animación Fade-In scroll */
         const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
+            entries.exports = entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserver(entry.target);
