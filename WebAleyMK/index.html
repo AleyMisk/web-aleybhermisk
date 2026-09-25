@@ -137,7 +137,7 @@
             justify-content: center;
         }
 
-        /* Tarjetas con sombras suaves */
+        /* Tarjetas con sombras suaves y estéticas que dan volumen */
         .video-card, .short-card {
             background: #fff9e6;
             border-radius: 22px;
@@ -156,19 +156,33 @@
             box-shadow: 0 12px 28px rgba(255, 182, 193, 0.35);
         }
 
-        /* Título fijo y visible siempre tanto para videos largos como para shorts */
-        .video-title-fixed, .short-title-fixed {
+        /* Ventanita flotante animada con el título al pasar el cursor (tanto para videos como para shorts) */
+        .video-title-popup {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(6px);
             color: #2b2b2b;
-            padding: 10px 14px;
-            margin-top: 12px;
-            border-radius: 12px;
+            padding: 12px 18px;
+            border-radius: 14px;
             font-size: 0.95rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 2px solid #ffe6eb;
-            text-align: center;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            border: 2px solid #ffb6c1;
+            
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 5;
+        }
+
+        .video-card:hover .video-title-popup, 
+        .short-card:hover .video-title-popup {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         /* Contenedor del Carrusel de Shorts */
@@ -514,7 +528,7 @@
                         contenedorShorts.innerHTML += `
                             <div class="short-card">
                                 <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="short-title-fixed">${titulo}</div>
+                                <div class="video-title-popup">${titulo}</div>
                             </div>
                         `;
                         countShorts++;
@@ -522,7 +536,7 @@
                         contenedorVideos.innerHTML += `
                             <div class="video-card">
                                 <iframe width="100%" height="230" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px;"></iframe>
-                                <div class="video-title-fixed">${titulo}</div>
+                                <div class="video-title-popup">${titulo}</div>
                             </div>
                         `;
                         countVideos++;
