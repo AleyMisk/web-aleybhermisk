@@ -137,7 +137,7 @@
             justify-content: center;
         }
 
-        /* Tarjetas con sombras suaves y estéticas que dan volumen */
+        /* Tarjetas con sombras estéticas y marcadas alrededor de todo el contorno */
         .video-card, .short-card {
             background: #fff9e6;
             border-radius: 22px;
@@ -146,17 +146,17 @@
             overflow: hidden;
             text-align: center;
             border: 2px solid transparent;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(255, 133, 162, 0.15);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-card:hover, .short-card:hover {
             transform: translateY(-6px);
             border-color: #ffb6c1;
-            box-shadow: 0 12px 28px rgba(255, 182, 193, 0.35);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.4);
         }
 
-        /* Ventanita flotante animada con el título al pasar el cursor (tanto para videos como para shorts) */
+        /* Ventanita flotante animada con el título al pasar el cursor */
         .video-title-popup {
             position: absolute;
             bottom: 15px;
@@ -197,7 +197,7 @@
             gap: 22px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 15px 5px 25px 5px;
+            padding: 15px 10px 25px 10px;
             width: 100%;
             scrollbar-width: thin;
             scrollbar-color: #ffb6c1 #f0f0f0;
