@@ -175,6 +175,7 @@
             text-align: center;
         }
 
+        /* ESTILOS DE VIDEOS LARGOS CON HOVER Y SOMBRA ROSADA */
         .videos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -192,7 +193,7 @@
 
         .video-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.4);
         }
 
         .video-container {
@@ -220,6 +221,11 @@
             font-size: 1.1rem;
             color: #2b2b2b;
             margin-bottom: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .video-card:hover .video-title {
+            color: #ff5c8a;
         }
 
         .video-desc {
@@ -227,6 +233,59 @@
             color: #666;
         }
 
+        /* ESTILOS DE SHORTS (ANIMADOS Y BONITOS) */
+        .shorts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .short-card {
+            background: #fffdfa;
+            border: 2px solid #ffe6eb;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .short-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 133, 162, 0.3);
+        }
+
+        .short-preview {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.77%; /* Proporción 9:16 para shorts */
+            background: #222;
+        }
+
+        .short-preview iframe, .short-preview img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .short-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .short-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #2b2b2b;
+        }
+
+        /* ESTILOS DEL RANKING */
         .ranking-container {
             background: #fffdfa;
             border: 2px solid #ffe6eb;
@@ -346,6 +405,7 @@
             box-shadow: 0 10px 25px rgba(255, 133, 162, 0.7);
         }
 
+        /* MODAL */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -504,7 +564,7 @@
 
         <div class="content-card">
             
-            <!-- SECCIÓN DE VIDEOS DE YOUTUBE -->
+            <!-- SECCIÓN DE VIDEOS LARGOS (CON HOVER Y SOMBRA ROSADA) -->
             <section class="section">
                 <h2 class="section-title">🎬 Mis Últimos Videos</h2>
                 <div class="videos-grid">
@@ -529,7 +589,46 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN DEL RANKING DE COMENTARIOS -->
+            <!-- SECCIÓN DE YOUTUBE SHORTS (ANIMADOS Y BONITOS) -->
+            <section class="section">
+                <h2 class="section-title">📱 YouTube Shorts</h2>
+                <div class="shorts-grid">
+                    <a href="https://youtube.com/shorts/TU_SHORT_1" target="_blank" class="short-card">
+                        <div class="short-preview">
+                            <iframe src="https://www.youtube.com/embed/TU_SHORT_1" allowfullscreen></iframe>
+                        </div>
+                        <div class="short-info">
+                            <div class="short-title">Speedrun de MAQUINA</div>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/shorts/TU_SHORT_2" target="_blank" class="short-card">
+                        <div class="short-preview">
+                            <iframe src="https://www.youtube.com/embed/TU_SHORT_2" allowfullscreen></iframe>
+                        </div>
+                        <div class="short-info">
+                            <div class="short-title">TRANSFORME la SAB...</div>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/shorts/TU_SHORT_3" target="_blank" class="short-card">
+                        <div class="short-preview">
+                            <iframe src="https://www.youtube.com/embed/TU_SHORT_3" allowfullscreen></iframe>
+                        </div>
+                        <div class="short-info">
+                            <div class="short-title">Mod de Fisicas Realis</div>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/shorts/TU_SHORT_4" target="_blank" class="short-card">
+                        <div class="short-preview">
+                            <iframe src="https://www.youtube.com/embed/TU_SHORT_4" allowfullscreen></iframe>
+                        </div>
+                        <div class="short-info">
+                            <div class="short-title">Aldeano Inteligente</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DEL RANKING DE COMENTARIOS (FIREBASE) -->
             <section class="section">
                 <div class="ranking-container">
                     <h2 class="section-title centered" style="margin-bottom: 5px;">Ranking de Comentarios 💬</h2>
@@ -601,7 +700,6 @@
 
         async function cargarRankingFirebase() {
             try {
-                // Conectando a la colección correcta "ranking_2026" ordenando por los comentarios
                 const q = query(collection(db, "ranking_2026"), orderBy("comments", "desc"));
                 const querySnapshot = await getDocs(q);
                 
@@ -637,7 +735,6 @@
                 else if (pos === 2) { posDisplay = "🥈"; badgeClass = "top-2"; }
                 else if (pos === 3) { posDisplay = "🥉"; badgeClass = "top-3"; }
 
-                // Usa la imagen de avatar de Firebase si existe, si no, usa la inicial del nombre por seguridad
                 const avatarHTML = user.avatar 
                     ? `<img src="${user.avatar}" alt="${user.name}" class="ranking-avatar">` 
                     : `<div class="ranking-avatar" style="display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>`;
